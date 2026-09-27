@@ -17,12 +17,25 @@
     padding: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overscroll-behavior-y: none;
   }
 
   ::selection {
     background-color: #C40024;
     color: #ffffff;
   }
+}
+
+/* 165Hz Hardware Acceleration & Performance Hints */
+* {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.transform-gpu {
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
 }
 
 /* Custom Cursor Rules */

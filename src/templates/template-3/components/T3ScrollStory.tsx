@@ -141,15 +141,17 @@ export default function T3ScrollStory() {
                 <motion.div
                   key={st.step}
                   style={{ opacity, scale }}
-                  className="absolute inset-0"
+                  className="absolute inset-0 transform-gpu will-change-transform"
                 >
                   <Image
                     src={st.image}
                     alt={st.stage}
                     fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    priority={idx === 0}
                     className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent pointer-events-none" />
                   
                   <div className="absolute top-4 left-4 font-mono text-xs text-white bg-black/70 backdrop-blur-md px-3 py-1 rounded border border-white/10">
                     STAGE {st.step}: {st.stage}

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Activity, ShieldCheck, Zap, Cpu, Database, Smartphone, Layers } from "lucide-react";
+import { Activity } from "lucide-react";
 
 interface NodeData {
   id: string;
@@ -36,16 +36,26 @@ const CONNECTIONS = [
 ];
 
 export default function T2SystemDiagram() {
-  const [activeNode, setActiveNode] = useState<NodeData>(ECOSYSTEM_NODES[7]); // Central Core default
+  const [activeNode, setActiveNode] = useState<NodeData>(ECOSYSTEM_NODES[7]);
 
   return (
-    <section className="bg-[#090D16] text-[#F1F5F9] py-24 border-b border-[#1E293B] font-sans">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 space-y-12">
+    <section className="bg-[#090D16] text-[#F1F5F9] py-24 border-b border-[#1E293B] font-sans relative overflow-hidden transition-colors duration-500">
+      
+      {/* Background Radial Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-[#3B82F6]/10 rounded-full blur-[160px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-6 md:px-12 space-y-12 relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[#1E293B]">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[#1E293B]"
+        >
           <div className="space-y-2">
-            <span className="font-mono text-xs text-[#3B82F6] uppercase tracking-widest block">
+            <span className="font-mono text-xs text-[#3B82F6] uppercase tracking-widest block font-bold">
               // FRONTEND & SYSTEM ECOSYSTEM
             </span>
             <h2 className="font-display font-black text-3xl sm:text-5xl uppercase tracking-tight text-[#F1F5F9]">
@@ -53,28 +63,34 @@ export default function T2SystemDiagram() {
             </h2>
           </div>
           <p className="text-slate-400 text-xs sm:text-sm font-mono max-w-md">
-            Click or hover over architecture nodes to inspect cross-platform integration parameters.
+            Interactive node network mapping cross-platform React Native, Web, and Cloud microservices.
           </p>
-        </div>
+        </motion.div>
 
         {/* Diagram Canvas Container */}
-        <div className="bg-[#131D31] border border-[#1E293B] rounded-2xl p-6 md:p-10 relative overflow-hidden space-y-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="bg-[#131D31]/90 border border-[#1E293B] rounded-2xl p-6 md:p-10 relative overflow-hidden space-y-8 backdrop-blur-xl shadow-2xl"
+        >
           
           {/* Control Bar */}
           <div className="flex flex-wrap items-center justify-between font-mono text-xs text-slate-400 border-b border-[#1E293B] pb-4 gap-4">
             <div className="flex items-center gap-2">
               <Activity size={14} className="text-[#3B82F6] animate-pulse" />
-              <span className="text-[#F1F5F9]">SYSTEM SIGNAL OK</span>
+              <span className="text-[#F1F5F9] font-bold">SYSTEM SIGNAL ACTIVE</span>
             </div>
 
             <div className="flex items-center gap-6">
               <span>ACTIVE NODE: <strong className="text-[#3B82F6]">{activeNode.name}</strong></span>
-              <span>INSPECTION PROTOCOL: VERCEL / LINEAR SPEC</span>
+              <span className="hidden sm:inline">PROTOCOL: ENTERPRISE V2.0</span>
             </div>
           </div>
 
           {/* Graph Visualizer */}
-          <div className="relative h-[420px] sm:h-[480px] w-full bg-[#090D16] rounded-xl border border-[#1E293B] overflow-hidden">
+          <div className="relative h-[400px] sm:h-[460px] w-full bg-[#090D16] rounded-xl border border-[#1E293B] overflow-hidden">
             
             {/* SVG Connecting Lines */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none">
@@ -94,8 +110,9 @@ export default function T2SystemDiagram() {
                     x2={`${target.x}%`}
                     y2={`${target.y}%`}
                     stroke={isHighlight ? "#3B82F6" : "#1E293B"}
-                    strokeWidth={isHighlight ? 2 : 1}
+                    strokeWidth={isHighlight ? 2.5 : 1}
                     strokeDasharray={isHighlight ? "4 4" : "none"}
+                    className="transition-all duration-300"
                   />
                 );
               })}
@@ -118,7 +135,7 @@ export default function T2SystemDiagram() {
                   }}
                   className={`absolute -translate-x-1/2 -translate-y-1/2 p-3 rounded-lg border transition-all duration-200 font-mono text-xs flex flex-col items-center gap-0.5 shadow-md ${
                     isActive
-                      ? "bg-[#3B82F6] text-white border-white scale-110 z-20 shadow-[#3B82F6]/40"
+                      ? "bg-[#3B82F6] text-white border-white scale-110 z-20 shadow-[0_0_20px_rgba(59,130,246,0.6)]"
                       : isCenter
                       ? "bg-[#131D31] border-[#3B82F6] text-[#F1F5F9] z-10"
                       : "bg-[#131D31] border-[#1E293B] text-slate-300 hover:border-slate-500 z-10"
@@ -142,7 +159,7 @@ export default function T2SystemDiagram() {
           <div className="bg-[#090D16] border border-[#1E293B] p-6 rounded-xl font-mono text-xs space-y-3">
             <div className="flex items-center justify-between border-b border-[#1E293B] pb-3">
               <div className="flex items-center gap-3">
-                <span className="w-2.5 h-2.5 bg-[#3B82F6] rounded-full" />
+                <span className="w-2.5 h-2.5 bg-[#3B82F6] rounded-full animate-pulse" />
                 <h3 className="text-sm font-bold text-[#F1F5F9] uppercase font-sans">
                   {activeNode.name} SPECIFICATION
                 </h3>
@@ -150,12 +167,12 @@ export default function T2SystemDiagram() {
               <span className="text-[#3B82F6] font-semibold">{activeNode.category}</span>
             </div>
 
-            <p className="text-slate-300 font-sans text-xs sm:text-sm font-light">
+            <p className="text-slate-300 font-sans text-xs sm:text-sm font-light leading-relaxed">
               {activeNode.description}
             </p>
           </div>
 
-        </div>
+        </motion.div>
 
       </div>
     </section>

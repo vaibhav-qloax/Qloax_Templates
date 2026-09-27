@@ -2,17 +2,14 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ExternalLink, Eye, CheckCircle2, ArrowRight, X } from "lucide-react";
+import { ExternalLink, Maximize2, CheckCircle2, ArrowRight, Sparkles } from "lucide-react";
+import LiquidEther from "@/components/shared/LiquidEther";
 
 interface TemplateInfo {
   id: string;
   number: string;
   name: string;
-  tagline: string;
-  description: string;
   route: string;
-  keyFeatures: string[];
-  visualTheme: string;
 }
 
 const TEMPLATES: TemplateInfo[] = [
@@ -20,171 +17,159 @@ const TEMPLATES: TemplateInfo[] = [
     id: "template-1",
     number: "Template 01",
     name: "Cinematic Engineering",
-    tagline: "Inspired by Bohdan.design interaction quality & continuous motion",
-    description:
-      "A high-impact cinematic experience featuring oversized typography reveals, pinned horizontal scroll showcases, scale-masked project reveals, magnetic custom cursor, and continuous section transformations.",
     route: "/templates/template-1",
-    keyFeatures: [
-      "Bohdan-style visual movement & cursor interactions",
-      "Interactive capabilities transformation engine",
-      "Scroll-driven video & image clip mask reveals",
-      "Sticky split editorial project case studies",
-    ],
-    visualTheme: "Ultra-Dark Cinematic & Oversized Typography",
   },
   {
     id: "template-2",
     number: "Template 02",
     name: "Intelligent Systems",
-    tagline: "Architecture-focused digital ecosystem with node visualization",
-    description:
-      "A technical intelligence experience built around an interactive node network diagram, system data-flow visualizer, editorial grid layouts, and structured Problem-Engineering-Outcome matrixes.",
     route: "/templates/template-2",
-    keyFeatures: [
-      "Interactive SVG system architecture diagram",
-      "Live data flow signal node highlights",
-      "Editorial product grid compositions",
-      "Technical HUD elements & line grids",
-    ],
-    visualTheme: "Technical Minimalist & Node Architecture",
   },
   {
     id: "template-3",
     number: "Template 03",
     name: "Future of Industry",
-    tagline: "Industrial technology visual story with camera movement",
-    description:
-      "An industrial engineering showcase featuring vertical scroll-driven narrative stages, red precision gridlines, heavy industrial photography transformations, and future-facing product choreography.",
     route: "/templates/template-3",
-    keyFeatures: [
-      "6-Stage industrial transformation story",
-      "Parallax camera depth scroll movement",
-      "Industrial technology product ecosystem",
-      "Red precision technical line accents",
-    ],
-    visualTheme: "Industrial Future & Machine Precision",
   },
 ];
 
 export default function DashboardPage() {
   const [activeTemplate, setActiveTemplate] = useState<string>("template-1");
-  const [previewTemplate, setPreviewTemplate] = useState<TemplateInfo | null>(null);
 
   return (
-    <div className="min-h-screen bg-[#080808] text-neutral-200 font-sans p-6 md:p-12">
-      <div className="max-w-6xl mx-auto space-y-8">
+    <div className="relative min-h-screen bg-[#050508] text-white font-sans overflow-x-hidden">
+      {/* Background Liquid Ether WebGL Fluid Simulation */}
+      <div className="fixed inset-0 z-0 opacity-80 pointer-events-auto">
+        <LiquidEther
+          colors={["#5227FF", "#FF007A", "#00F0FF", "#B19EEF"]}
+          mouseForce={28}
+          cursorSize={120}
+          autoDemo={true}
+          autoSpeed={0.5}
+          autoIntensity={2.2}
+          resolution={0.5}
+          BFECC={true}
+        />
+      </div>
+
+      {/* Atmospheric Subtle Overlay Grid */}
+      <div className="fixed inset-0 z-[1] pointer-events-none bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+
+      {/* Main Container */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 space-y-8">
         
-        {/* Simple Header */}
-        <header className="border-b border-neutral-800 pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
+        {/* Sleek Bright Header */}
+        <header className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-6 md:p-8 shadow-[0_8px_32px_0_rgba(82,39,255,0.2)] flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-1">
             <div className="flex items-center gap-3">
-              <span className="w-3 h-3 bg-[#C40024] rounded-full"></span>
-              <h1 className="text-xl font-bold text-white tracking-wide uppercase">
-                QLOAX Website Builder
+              <span className="relative flex h-3 w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-[#00F0FF]"></span>
+              </span>
+              <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-cyan-200 to-purple-400">
+                QLOAX TEMPLATE HUB
               </h1>
             </div>
-            <p className="text-sm text-neutral-400 mt-1">
-              Internal Template Selector & Administrative Workspace
+            <p className="text-sm text-neutral-400 pl-6">
+              Interactive Website Showcase & Preview Dashboard
             </p>
           </div>
 
-          <div className="flex items-center gap-2 bg-neutral-900 border border-neutral-800 px-3 py-1.5 rounded text-xs text-neutral-300">
-            <span className="text-neutral-500">Active Selection:</span>
-            <span className="font-semibold text-white">
+          <div className="flex items-center gap-3 bg-white/5 border border-white/10 px-4 py-2 rounded-xl backdrop-blur-md">
+            <Sparkles className="w-4 h-4 text-cyan-400 animate-pulse" />
+            <span className="text-xs text-neutral-400">Active Selection:</span>
+            <span className="text-xs font-semibold text-cyan-300">
               {TEMPLATES.find((t) => t.id === activeTemplate)?.name}
             </span>
           </div>
         </header>
 
-        {/* Info Banner */}
-        <div className="bg-neutral-900/60 border border-neutral-800 p-4 rounded text-xs text-neutral-400 space-y-1">
-          <p className="font-medium text-neutral-300">
-            System Notice:
-          </p>
-          <p>
-            The dashboard is an administrative template switcher. Each website concept below is a completely independent architectural build with its own layout, hero, typography, motion system, and interactive components.
-          </p>
-        </div>
-
         {/* Template Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {TEMPLATES.map((tmpl) => {
             const isActive = activeTemplate === tmpl.id;
             return (
               <div
                 key={tmpl.id}
-                className={`flex flex-col justify-between bg-neutral-900 border rounded-lg p-6 transition-all duration-200 ${
+                className={`group relative flex flex-col justify-between bg-black/50 backdrop-blur-xl border rounded-2xl overflow-hidden transition-all duration-300 shadow-xl hover:shadow-[0_0_35px_rgba(82,39,255,0.3)] ${
                   isActive
-                    ? "border-[#C40024] ring-1 ring-[#C40024]/40"
-                    : "border-neutral-800 hover:border-neutral-700"
+                    ? "border-cyan-400/80 ring-2 ring-cyan-400/30 shadow-[0_0_30px_rgba(0,240,255,0.25)]"
+                    : "border-white/10 hover:border-purple-500/60"
                 }`}
               >
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest">
+                {/* Card Header Bar */}
+                <div className="p-4 bg-white/5 border-b border-white/10 flex items-center justify-between z-10">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-mono font-bold text-cyan-400 tracking-wider">
                       {tmpl.number}
                     </span>
-                    {isActive ? (
-                      <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 px-2 py-0.5 rounded">
-                        <CheckCircle2 size={12} />
-                        Active
-                      </span>
-                    ) : (
-                      <button
-                        onClick={() => setActiveTemplate(tmpl.id)}
-                        className="text-[11px] text-neutral-400 hover:text-white underline underline-offset-4"
-                      >
-                        Set Active
-                      </button>
-                    )}
-                  </div>
-
-                  <div>
-                    <h2 className="text-lg font-semibold text-white tracking-tight">
+                    <span className="text-white/30">•</span>
+                    <h2 className="text-sm font-bold text-white tracking-wide">
                       {tmpl.name}
                     </h2>
-                    <p className="text-xs text-[#C40024] font-medium mt-0.5">
-                      {tmpl.tagline}
-                    </p>
                   </div>
 
-                  <p className="text-xs text-neutral-400 leading-relaxed">
-                    {tmpl.description}
-                  </p>
-
-                  <div className="space-y-1.5 pt-2 border-t border-neutral-800/80">
-                    <span className="text-[10px] uppercase tracking-wider text-neutral-500 font-mono">
-                      Highlights:
+                  {isActive ? (
+                    <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-cyan-300 bg-cyan-500/20 border border-cyan-400/40 px-2.5 py-1 rounded-full shadow-[0_0_10px_rgba(0,240,255,0.3)]">
+                      <CheckCircle2 size={12} />
+                      Active
                     </span>
-                    <ul className="space-y-1">
-                      {tmpl.keyFeatures.map((feat, idx) => (
-                        <li
-                          key={idx}
-                          className="text-[11px] text-neutral-300 flex items-start gap-1.5"
-                        >
-                          <span className="text-[#C40024] font-bold">•</span>
-                          {feat}
-                        </li>
-                      ))}
-                    </ul>
+                  ) : (
+                    <button
+                      onClick={() => setActiveTemplate(tmpl.id)}
+                      className="text-[11px] text-neutral-400 hover:text-white bg-white/5 hover:bg-white/10 px-2.5 py-1 rounded-full border border-white/10 transition-colors"
+                    >
+                      Set Active
+                    </button>
+                  )}
+                </div>
+
+                {/* Live Website Homepage Preview Container */}
+                <div className="relative w-full aspect-[16/10] bg-black overflow-hidden group/preview">
+                  {/* Scaled Live Webpage inside Card */}
+                  <div className="absolute inset-0 w-[250%] h-[250%] origin-top-left transform scale-[0.4] pointer-events-none select-none">
+                    <iframe
+                      src={tmpl.route}
+                      className="w-full h-full border-0 pointer-events-none"
+                      title={tmpl.name}
+                      loading="lazy"
+                    />
+                  </div>
+
+                  {/* Hover Overlay Button to Open Full Screen in New Tab */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover/preview:opacity-100 transition-all duration-300 flex items-center justify-center gap-3 backdrop-blur-[2px]">
+                    <Link
+                      href={tmpl.route}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-cyan-500 text-black font-bold text-xs shadow-[0_0_20px_rgba(0,240,255,0.5)] hover:scale-105 active:scale-95 transition-all duration-200"
+                    >
+                      <Maximize2 size={14} />
+                      Full Screen Preview
+                      <ExternalLink size={12} />
+                    </Link>
                   </div>
                 </div>
 
-                <div className="pt-6 border-t border-neutral-800 flex items-center justify-between gap-3 mt-6">
-                  <button
-                    onClick={() => setPreviewTemplate(tmpl)}
-                    className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium bg-neutral-800 hover:bg-neutral-700 text-neutral-200 rounded border border-neutral-700 transition-colors"
+                {/* Card Action Footer */}
+                <div className="p-4 bg-white/5 border-t border-white/10 flex items-center gap-3">
+                  <Link
+                    href={tmpl.route}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-white/10 hover:bg-cyan-500/20 hover:border-cyan-400/50 text-white border border-white/15 transition-all duration-200"
                   >
-                    <Eye size={14} />
-                    Preview
-                  </button>
+                    <Maximize2 size={14} className="text-cyan-400" />
+                    Full Screen Preview
+                    <ExternalLink size={12} className="text-neutral-400" />
+                  </Link>
 
                   <Link
                     href={tmpl.route}
-                    className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium bg-[#C40024] hover:bg-[#E0002A] text-white rounded transition-colors"
+                    className="inline-flex items-center justify-center p-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white shadow-[0_0_15px_rgba(168,85,247,0.4)] transition-all duration-200 hover:scale-105 active:scale-95"
+                    title="Navigate to Template Page"
                   >
-                    Open
-                    <ArrowRight size={14} />
+                    <ArrowRight size={16} />
                   </Link>
                 </div>
               </div>
@@ -193,61 +178,12 @@ export default function DashboardPage() {
         </div>
 
         {/* Dashboard Footer */}
-        <footer className="pt-8 border-t border-neutral-800 text-xs text-neutral-500 flex flex-col sm:flex-row justify-between items-center gap-2">
-          <span>QLOAX Internal Engineering Portal</span>
-          <span>Positioning: "ENGINEERING Intelligence, Empowering Industry."</span>
+        <footer className="pt-6 border-t border-white/10 text-xs text-neutral-400 flex flex-col sm:flex-row justify-between items-center gap-2">
+          <span className="font-mono text-neutral-400">QLOAX Website Engine</span>
+          <span className="text-cyan-400/80 font-medium">Liquid Ether Fluid Dynamics Integration</span>
         </footer>
 
       </div>
-
-      {/* Modal Live Preview */}
-      {previewTemplate && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-neutral-900 border border-neutral-800 rounded-lg w-full max-w-5xl h-[85vh] flex flex-col overflow-hidden shadow-2xl">
-            
-            {/* Modal Header */}
-            <div className="px-4 py-3 bg-neutral-950 border-b border-neutral-800 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <span className="text-xs font-mono text-neutral-400">
-                  Preview Mode:
-                </span>
-                <span className="text-sm font-semibold text-white">
-                  {previewTemplate.name}
-                </span>
-                <span className="text-xs text-neutral-500 font-mono">
-                  ({previewTemplate.route})
-                </span>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <Link
-                  href={previewTemplate.route}
-                  target="_blank"
-                  className="inline-flex items-center gap-1 text-xs text-[#C40024] hover:text-[#E0002A] font-medium"
-                >
-                  Open Full Screen
-                  <ExternalLink size={12} />
-                </Link>
-                <button
-                  onClick={() => setPreviewTemplate(null)}
-                  className="p-1 text-neutral-400 hover:text-white rounded bg-neutral-800"
-                >
-                  <X size={16} />
-                </button>
-              </div>
-            </div>
-
-            {/* Iframe View */}
-            <div className="flex-1 bg-black relative">
-              <iframe
-                src={previewTemplate.route}
-                className="w-full h-full border-none"
-                title={`Preview ${previewTemplate.name}`}
-              />
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

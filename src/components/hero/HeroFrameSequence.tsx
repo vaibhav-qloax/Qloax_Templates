@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { MotionValue } from "framer-motion";
 
 export interface HeroFrameSequenceProps {
@@ -11,7 +11,6 @@ export interface HeroFrameSequenceProps {
   padding?: number;
   extension?: string;
   preloadMode?: "progressive" | "all";
-  frameLerp?: number;
   debug?: boolean;
 }
 
@@ -22,64 +21,50 @@ export default function HeroFrameSequence({
   prefix = "ezgif-frame-",
   padding = 3,
   extension = ".jpg",
-  preloadMode = "progressive",
-  frameLerp = 0.12,
+  preloadMode = "all",
   debug = false,
 }: HeroFrameSequenceProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const loadedFramesRef = useRef<Map<number, HTMLImageElement>>(new Map());
+  const inFlightRef = useRef<Set<number>>(new Set());
   const currentFrameRef = useRef<number>(1);
   const targetFrameRef = useRef<number>(1);
   const rafIdRef = useRef<number | null>(null);
+  const lastTimeRef = useRef<number>(0);
+  const isRunningRef = useRef<boolean>(false);
+
   const [debugState, setDebugState] = useState({ frame: 1, progress: 0, loaded: 0 });
 
-  // Format frame filename: ezgif-frame-001.jpg
-  const getFrameUrl = (frameIndex: number) => {
-    const paddedIndex = String(frameIndex).padStart(padding, "0");
-    return `${imageFolderPath}/${prefix}${paddedIndex}${extension}`;
-  };
+  // Format frame URL
+  const getFrameUrl = useCallback(
+    (frameIndex: number) => {
+      const paddedIndex = String(frameIndex).padStart(padding, "0");
+      return `${imageFolderPath}/${prefix}${paddedIndex}${extension}`;
+    },
+    [imageFolderPath, prefix, padding, extension]
+  );
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { alpha: false });
     if (!ctx) return;
 
     let isUnmounted = false;
 
-    // Reduced Motion check
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
-    // High-DPI Canvas Resizing
-    const resizeCanvas = () => {
-      if (!canvas) return;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
-
-      ctx.scale(dpr, dpr);
-    };
-
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
-
-    // Render single frame to canvas with object-fit: cover
+    // Render single frame with dynamic responsive alignment (Right -> Middle -> Left on mobile scroll)
     const renderFrameToCanvas = (frameNum: number) => {
       if (!canvas || !ctx) return;
       const width = window.innerWidth;
       const height = window.innerHeight;
 
-      // Find target frame or closest loaded frame
+      // Find exact frame or nearest loaded fallback
       let img = loadedFramesRef.current.get(frameNum);
       if (!img) {
-        // Find nearest loaded fallback frame
         let minDiff = Infinity;
         for (const [idx, cachedImg] of loadedFramesRef.current.entries()) {
           const diff = Math.abs(idx - frameNum);
@@ -92,104 +77,154 @@ export default function HeroFrameSequence({
 
       if (!img || !img.complete || img.naturalWidth === 0) return;
 
-      // Object-fit: cover math
       const imgWidth = img.naturalWidth;
       const imgHeight = img.naturalHeight;
       const scale = Math.max(width / imgWidth, height / imgHeight);
       const drawWidth = imgWidth * scale;
       const drawHeight = imgHeight * scale;
-      const x = (width - drawWidth) / 2;
-      const y = (height - drawHeight) / 2;
 
-      ctx.clearRect(0, 0, width, height);
+      // Dynamic horizontal focal alignment
+      let alignX = 0.5; // Desktop default (Center)
+      
+      const isMobile = width < 768;
+      if (isMobile) {
+        // Calculate normalized frame progress [0, 1]
+        const progress = Math.max(0, Math.min(1, (currentFrameRef.current - 1) / Math.max(1, totalFrames - 1)));
+        
+        // On Open (progress 0.0 -> 0.45): Show RIGHT side (alignX = 1.0)
+        // On Scroll Middle (progress 0.45 -> 0.70): Pans smoothly to MIDDLE (alignX = 0.5)
+        // On Scroll End (progress 0.70 -> 1.0): Pans smoothly to LEFT (alignX = 0.0)
+        if (progress <= 0.5) {
+          const t = progress / 0.5;
+          // Smooth sine/cubic ease
+          const ease = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+          alignX = 1.0 - ease * 0.5; // 1.0 -> 0.5
+        } else {
+          const t = (progress - 0.5) / 0.5;
+          const ease = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+          alignX = 0.5 - ease * 0.5; // 0.5 -> 0.0
+        }
+      }
+
+      const x = (width - drawWidth) * alignX;
+      const y = (height - drawHeight) * 0.5;
+
       ctx.drawImage(img, x, y, drawWidth, drawHeight);
     };
 
-    // Single Frame Loader helper
-    const loadFrame = (frameIndex: number): Promise<HTMLImageElement> => {
-      return new Promise((resolve, reject) => {
-        if (loadedFramesRef.current.has(frameIndex)) {
-          resolve(loadedFramesRef.current.get(frameIndex)!);
-          return;
-        }
+    // High-DPI Canvas Resizing with Hardware Transform
+    const resizeCanvas = () => {
+      if (!canvas || !ctx) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const width = window.innerWidth;
+      const height = window.innerHeight;
 
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = "medium";
+
+      renderFrameToCanvas(Math.round(currentFrameRef.current));
+    };
+
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas, { passive: true });
+
+    // Non-blocking async frame loader with background decode
+    const loadFrame = (frameIndex: number): Promise<HTMLImageElement | null> => {
+      if (loadedFramesRef.current.has(frameIndex)) {
+        return Promise.resolve(loadedFramesRef.current.get(frameIndex)!);
+      }
+      if (inFlightRef.current.has(frameIndex)) {
+        return Promise.resolve(null);
+      }
+
+      inFlightRef.current.add(frameIndex);
+
+      return new Promise((resolve) => {
         const img = new Image();
         img.src = getFrameUrl(frameIndex);
-        img.onload = () => {
+
+        const onFinish = async () => {
+          if (isUnmounted) return;
+          inFlightRef.current.delete(frameIndex);
+          try {
+            if ("decode" in img) {
+              await img.decode();
+            }
+          } catch {
+            // Ignore decode failures on older browsers
+          }
           if (!isUnmounted) {
             loadedFramesRef.current.set(frameIndex, img);
-            if (debug) {
-              setDebugState((prev) => ({
-                ...prev,
-                loaded: loadedFramesRef.current.size,
-              }));
+            if (Math.round(currentFrameRef.current) === frameIndex) {
+              renderFrameToCanvas(frameIndex);
             }
           }
           resolve(img);
         };
+
+        img.onload = onFinish;
         img.onerror = () => {
-          reject();
+          inFlightRef.current.delete(frameIndex);
+          resolve(null);
         };
       });
     };
 
-    // 1. Synchronously load Frame 1 first for immediate background readiness
-    loadFrame(1).then(() => {
+    // Preload Batch Controller (Chunked concurrent downloads to prevent network choke)
+    const preloadAllBatches = async () => {
+      // 1. Immediately load frame 1
+      await loadFrame(1);
       renderFrameToCanvas(1);
-    });
 
-    // 2. Preload Queue / Strategy (Deferred slightly so it never lags the landing video)
-    const preloadQueue = () => {
-      if (preloadMode === "all") {
-        for (let i = 1; i <= totalFrames; i++) {
-          loadFrame(i);
-        }
-      } else {
-        const center = Math.round(targetFrameRef.current);
-        const radius = 25;
-        for (let offset = 0; offset <= radius; offset++) {
-          const forward = center + offset;
-          const backward = center - offset;
-          if (forward <= totalFrames && !loadedFramesRef.current.has(forward)) {
-            loadFrame(forward);
-          }
-          if (backward >= 1 && !loadedFramesRef.current.has(backward)) {
-            loadFrame(backward);
-          }
-        }
+      // 2. Load keyframes first (every 5th frame for fast responsiveness)
+      const keyframes: number[] = [];
+      for (let i = 1; i <= totalFrames; i += 5) {
+        keyframes.push(i);
+      }
+
+      // Concurrently load keyframes in batches of 6
+      const BATCH_SIZE = 6;
+      for (let i = 0; i < keyframes.length; i += BATCH_SIZE) {
+        if (isUnmounted) return;
+        const batch = keyframes.slice(i, i + BATCH_SIZE);
+        await Promise.all(batch.map((f) => loadFrame(f)));
+      }
+
+      // 3. Fill in all remaining intermediate frames sequentially in background
+      for (let i = 1; i <= totalFrames; i += BATCH_SIZE) {
+        if (isUnmounted) return;
+        const batch = Array.from(
+          { length: Math.min(BATCH_SIZE, totalFrames - i + 1) },
+          (_, k) => i + k
+        );
+        await Promise.all(batch.map((f) => loadFrame(f)));
       }
     };
 
-    // Defer heavy multi-frame loading so video splash playback has 100% CPU & GPU priority
-    const preloadTimer = setTimeout(() => {
-      if (!isUnmounted) {
-        preloadQueue();
-      }
-    }, 2000);
+    preloadAllBatches();
 
-    // 3. Listen to scroll progress
-    const unsubscribeScroll = scrollYProgress.on("change", (progress) => {
-      const clampedProgress = Math.max(0, Math.min(1, progress));
-      const target = Math.round(clampedProgress * (totalFrames - 1)) + 1;
-      targetFrameRef.current = target;
+    // Delta-time based 165Hz smooth animation loop
+    const tick = (now: number) => {
+      if (isUnmounted) return;
 
-      if (prefersReducedMotion) {
-        currentFrameRef.current = target;
-        renderFrameToCanvas(target);
-      }
+      if (!lastTimeRef.current) lastTimeRef.current = now;
+      const dt = Math.min((now - lastTimeRef.current) / 1000, 0.1);
+      lastTimeRef.current = now;
 
-      if (preloadMode === "progressive") {
-        preloadQueue();
-      }
-    });
-
-    // 4. Centralized Animation Loop
-    const tick = () => {
       if (!prefersReducedMotion) {
         const diff = targetFrameRef.current - currentFrameRef.current;
-        if (Math.abs(diff) > 0.01) {
-          currentFrameRef.current += diff * frameLerp;
-          const roundedFrame = Math.round(currentFrameRef.current);
+        
+        if (Math.abs(diff) > 0.005) {
+          // Exponential decay lerp for true 165Hz fluid tracking
+          const lerpFactor = 1 - Math.exp(-22 * dt);
+          currentFrameRef.current += diff * lerpFactor;
+          const roundedFrame = Math.max(1, Math.min(totalFrames, Math.round(currentFrameRef.current)));
           renderFrameToCanvas(roundedFrame);
 
           if (debug) {
@@ -199,34 +234,59 @@ export default function HeroFrameSequence({
               loaded: loadedFramesRef.current.size,
             });
           }
+
+          rafIdRef.current = requestAnimationFrame(tick);
+          return;
+        } else {
+          currentFrameRef.current = targetFrameRef.current;
+          renderFrameToCanvas(Math.round(currentFrameRef.current));
         }
       }
-      rafIdRef.current = requestAnimationFrame(tick);
+
+      isRunningRef.current = false;
     };
 
-    rafIdRef.current = requestAnimationFrame(tick);
+    const startAnimationLoop = () => {
+      if (!isRunningRef.current) {
+        isRunningRef.current = true;
+        lastTimeRef.current = performance.now();
+        rafIdRef.current = requestAnimationFrame(tick);
+      }
+    };
+
+    // Listen to scroll progress smoothly
+    const unsubscribeScroll = scrollYProgress.on("change", (progress) => {
+      const clampedProgress = Math.max(0, Math.min(1, progress));
+      const target = clampedProgress * (totalFrames - 1) + 1;
+      targetFrameRef.current = target;
+
+      if (prefersReducedMotion) {
+        currentFrameRef.current = target;
+        renderFrameToCanvas(Math.round(target));
+      } else {
+        startAnimationLoop();
+      }
+    });
 
     return () => {
       isUnmounted = true;
-      clearTimeout(preloadTimer);
       window.removeEventListener("resize", resizeCanvas);
       unsubscribeScroll();
       if (rafIdRef.current) {
         cancelAnimationFrame(rafIdRef.current);
       }
     };
-  }, [scrollYProgress, totalFrames, imageFolderPath, prefix, padding, extension, preloadMode, frameLerp, debug]);
+  }, [scrollYProgress, totalFrames, getFrameUrl, debug]);
 
   return (
     <>
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
+        className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none transform-gpu will-change-transform"
       />
 
-      {/* Development Debug Overlay */}
       {debug && (
-        <div className="fixed bottom-4 left-4 z-50 bg-black/80 text-emerald-400 font-mono text-xs p-3 rounded border border-emerald-500/40 space-y-1">
+        <div className="fixed bottom-4 left-4 z-50 bg-black/90 text-emerald-400 font-mono text-xs p-3 rounded border border-emerald-500/40 space-y-1">
           <div>Frame: {debugState.frame} / {totalFrames}</div>
           <div>Progress: {debugState.progress}%</div>
           <div>Loaded: {debugState.loaded} / {totalFrames}</div>

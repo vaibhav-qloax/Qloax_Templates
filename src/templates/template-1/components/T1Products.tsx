@@ -122,7 +122,7 @@ export default function T1Products() {
                     opacity: cardOpacity,
                     scale: cardScale,
                   }}
-                  className="bg-[#090909]/95 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden shadow-2xl space-y-4 hover:border-[#C40024] transition-colors duration-300 group flex flex-col justify-between relative z-30"
+                  className="bg-[#090909]/95 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden shadow-2xl space-y-4 hover:border-[#C40024] transition-colors duration-300 group flex flex-col justify-between relative z-30 transform-gpu will-change-transform"
                   data-cursor="open"
                 >
                   {/* Card Image */}
@@ -131,9 +131,11 @@ export default function T1Products() {
                       src={item.image}
                       alt={item.title}
                       fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      priority={idx < 3}
+                      className="object-cover transition-transform duration-700 group-hover:scale-105 transform-gpu"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-transparent to-transparent pointer-events-none" />
 
                     <div className="absolute top-3 left-3 bg-black/80 backdrop-blur-md px-3 py-1 rounded-full font-mono text-[11px] text-white border border-white/15 flex items-center gap-1.5">
                       <Sparkles size={12} className="text-[#C40024]" />
