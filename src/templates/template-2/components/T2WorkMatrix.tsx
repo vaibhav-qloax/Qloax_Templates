@@ -91,8 +91,8 @@ const FEATURED_PROJECTS: ProjectCaseStudy[] = [
 
 export default function T2WorkMatrix() {
   return (
-    <section id="projects" className="bg-[#FFFFFF] text-slate-900 py-24 border-b border-slate-200/80 font-sans transition-colors duration-500">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 space-y-16">
+    <section id="projects" className="bg-[#FFFFFF] text-slate-900 py-20 sm:py-24 border-b border-slate-200/80 font-sans transition-colors duration-500 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 space-y-12 sm:space-y-16">
         
         {/* Section Header */}
         <motion.div
@@ -106,17 +106,17 @@ export default function T2WorkMatrix() {
             <span className="font-mono text-xs text-[#2563EB] font-bold uppercase tracking-widest block">
               // FEATURED CASE STUDIES & METRICS
             </span>
-            <h2 className="font-display font-black text-4xl sm:text-6xl tracking-tight text-slate-900 uppercase">
+            <h2 className="font-display font-black text-3xl sm:text-5xl md:text-6xl tracking-tight text-slate-900 uppercase">
               FEATURED PROJECTS
             </h2>
           </div>
-          <p className="text-slate-600 text-sm font-sans max-w-md">
+          <p className="text-slate-600 text-xs sm:text-sm font-sans max-w-md">
             Quantifiable performance metrics, modular component scalability, and verified production deployments.
           </p>
         </motion.div>
 
         {/* Project Cards Grid - White Crystal Theme */}
-        <div className="space-y-16">
+        <div className="space-y-12 sm:space-y-16">
           {FEATURED_PROJECTS.map((proj, index) => (
             <motion.div
               key={proj.id}
@@ -127,13 +127,13 @@ export default function T2WorkMatrix() {
               className="bg-white border border-slate-200/90 rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(15,23,42,0.05)] hover:border-[#2563EB]/50 hover:shadow-[0_20px_40px_rgba(37,99,235,0.12)] transition-all duration-300 group"
             >
               {/* Top Impact Metrics Strip */}
-              <div className="bg-slate-50/80 border-b border-slate-200/80 p-6 grid grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="bg-slate-50/80 border-b border-slate-200/80 p-4 sm:p-6 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                 {proj.impactMetrics.map((metric, idx) => (
                   <div key={idx} className="space-y-0.5">
-                    <span className="font-mono text-[10px] text-slate-500 uppercase tracking-widest block font-medium">
+                    <span className="font-mono text-[9px] sm:text-[10px] text-slate-500 uppercase tracking-widest block font-medium">
                       {metric.label}
                     </span>
-                    <div className="font-display font-bold text-2xl sm:text-3xl text-[#1E40AF]">
+                    <div className="font-display font-bold text-xl sm:text-2xl md:text-3xl text-[#1E40AF]">
                       {metric.value}
                     </div>
                   </div>
@@ -141,12 +141,12 @@ export default function T2WorkMatrix() {
               </div>
 
               {/* Main Card Body */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 p-8 sm:p-12 items-center">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 p-5 sm:p-8 md:p-12 items-center">
                 
                 {/* Details Column */}
-                <div className="lg:col-span-7 space-y-6">
+                <div className="lg:col-span-7 space-y-5 sm:space-y-6">
                   <div className="space-y-2">
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                       <span className="font-mono text-xs font-bold text-[#1D4ED8] bg-[#2563EB]/10 px-2.5 py-1 rounded border border-[#2563EB]/20">
                         PROJECT {proj.number}
                       </span>
@@ -155,7 +155,7 @@ export default function T2WorkMatrix() {
                       </span>
                     </div>
 
-                    <h3 className="font-display font-black text-2xl sm:text-3xl text-slate-900 uppercase tracking-tight">
+                    <h3 className="font-display font-black text-xl sm:text-2xl md:text-3xl text-slate-900 uppercase tracking-tight">
                       {proj.title}
                     </h3>
 
@@ -164,7 +164,7 @@ export default function T2WorkMatrix() {
                     </p>
                   </div>
 
-                  <p className="text-slate-600 text-sm leading-relaxed font-sans font-normal">
+                  <p className="text-slate-600 text-xs sm:text-sm leading-relaxed font-sans font-normal">
                     {proj.overview}
                   </p>
 
@@ -200,7 +200,7 @@ export default function T2WorkMatrix() {
                 </div>
 
                 {/* Image Showcase Column */}
-                <div className="lg:col-span-5 relative h-64 sm:h-80 rounded-xl overflow-hidden bg-slate-100 border border-slate-200">
+                <div className="lg:col-span-5 relative h-56 sm:h-72 md:h-80 rounded-xl overflow-hidden bg-slate-100 border border-slate-200">
                   <Image
                     src={proj.image}
                     alt={proj.title}
@@ -209,9 +209,9 @@ export default function T2WorkMatrix() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-60" />
                   
-                  <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-md p-3 rounded-lg border border-slate-200 flex items-center justify-between text-xs font-mono shadow-md">
-                    <span className="text-slate-800 font-bold">EXPO / REACT NATIVE</span>
-                    <span className="text-[#2563EB] font-bold flex items-center gap-1">
+                  <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 bg-white/95 backdrop-blur-md p-2.5 sm:p-3 rounded-lg border border-slate-200 flex items-center justify-between text-xs font-mono shadow-md">
+                    <span className="text-slate-800 font-bold text-[11px] sm:text-xs">EXPO / REACT NATIVE</span>
+                    <span className="text-[#2563EB] font-bold flex items-center gap-1 text-[11px] sm:text-xs">
                       VERIFIED <ArrowUpRight size={12} />
                     </span>
                   </div>

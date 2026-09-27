@@ -7,12 +7,12 @@ import QloaxGeometricLogo from "@/components/shared/QloaxGeometricLogo";
 
 export default function T2Navbar() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#090D16]/85 backdrop-blur-xl border-b border-white/10 py-3.5 font-sans text-xs transition-all duration-300">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#090D16]/85 backdrop-blur-xl border-b border-white/10 py-3 sm:py-3.5 font-sans text-xs transition-all duration-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 flex items-center justify-between">
         
         {/* Brand logo */}
         <Link href="/templates/template-2" className="flex items-center group">
-          <QloaxGeometricLogo fixed={false} size={42} className="opacity-95 group-hover:opacity-100 group-hover:scale-105 transition-all drop-shadow-md" />
+          <QloaxGeometricLogo fixed={false} size={38} className="opacity-95 group-hover:opacity-100 group-hover:scale-105 transition-all drop-shadow-md" />
         </Link>
 
         {/* Platform Status */}
@@ -26,7 +26,7 @@ export default function T2Navbar() {
         </div>
 
         {/* Nav actions */}
-        <div className="flex items-center gap-6 font-mono text-xs">
+        <div className="flex items-center gap-4 sm:gap-6 font-mono text-xs">
           <a href="#projects" className="hover:text-cyan-400 text-slate-300 transition-colors hidden sm:block font-medium">
             01 // PROJECTS
           </a>
@@ -42,9 +42,10 @@ export default function T2Navbar() {
             onClick={() => {
               document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="px-4 py-2 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-sans font-semibold text-xs rounded-lg transition-all inline-flex items-center gap-1.5 shadow-lg shadow-[#3B82F6]/30"
+            className="px-3.5 sm:px-4 py-2 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-sans font-semibold text-xs rounded-lg transition-all inline-flex items-center gap-1.5 shadow-lg shadow-[#3B82F6]/30"
           >
-            START PROJECT
+            <span className="hidden xs:inline">START PROJECT</span>
+            <span className="xs:hidden">CONTACT</span>
             <ArrowUpRight size={14} />
           </MagneticButton>
         </div>

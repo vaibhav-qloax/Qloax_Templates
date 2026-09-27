@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Smartphone, Layers, ShieldCheck, Zap, Code2 } from "lucide-react";
+import { ArrowRight, Smartphone } from "lucide-react";
 import MagneticButton from "@/components/shared/MagneticButton";
 import GradientBlinds from "@/components/shared/GradientBlinds";
 
@@ -16,7 +16,7 @@ const TECH_BADGES = [
 
 export default function T2Hero() {
   return (
-    <section className="relative bg-[#090D16] text-[#F1F5F9] pt-36 pb-24 border-b border-[#1E293B] overflow-hidden font-sans">
+    <section className="relative bg-[#090D16] text-[#F1F5F9] pt-32 sm:pt-36 pb-20 sm:pb-24 border-b border-[#1E293B] overflow-hidden font-sans">
       
       {/* Dynamic GradientBlinds WebGL Background - Matched to Template 2 Palette */}
       <div className="absolute inset-0 pointer-events-none opacity-40 z-0">
@@ -42,7 +42,7 @@ export default function T2Hero() {
       {/* Subtle Indigo Glow behind hero */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-[#3B82F6]/10 rounded-full blur-[140px] pointer-events-none z-0" />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 space-y-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 relative z-10 space-y-10 sm:space-y-12">
         
         {/* Category Pill Tag */}
         <motion.div
@@ -61,7 +61,7 @@ export default function T2Hero() {
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-display font-black text-5xl sm:text-7xl md:text-8xl tracking-tight leading-[1.05] text-[#F1F5F9]"
+            className="font-display font-black text-3xl xs:text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight leading-[1.05] text-[#F1F5F9] break-words"
           >
             SCALABLE <span className="text-[#3B82F6]">UI ARCHITECTURES</span> & MOBILE SYSTEMS.
           </motion.h1>
@@ -70,7 +70,7 @@ export default function T2Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-slate-300 text-lg sm:text-xl font-light leading-relaxed max-w-3xl"
+            className="text-slate-300 text-base sm:text-lg md:text-xl font-light leading-relaxed max-w-3xl"
           >
             Architecting production-grade React Native, Expo, and enterprise frontend web applications engineered for ultra-fast performance, offline durability, and modular design systems.
           </motion.p>
@@ -81,14 +81,14 @@ export default function T2Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="flex flex-wrap items-center gap-4 pt-2 font-mono text-xs"
+          className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2 font-mono text-xs"
         >
           <MagneticButton
             dataCursor="open"
             onClick={() => {
               document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="px-8 py-4 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-sans font-bold text-sm rounded-lg transition-all shadow-lg shadow-[#3B82F6]/25 inline-flex items-center gap-2"
+            className="px-8 py-4 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-sans font-bold text-sm rounded-lg transition-all shadow-lg shadow-[#3B82F6]/25 inline-flex items-center justify-center gap-2"
           >
             EXPLORE FEATURED CASE STUDIES
             <ArrowRight size={16} />
@@ -96,7 +96,7 @@ export default function T2Hero() {
 
           <a
             href="#contact"
-            className="px-6 py-4 bg-[#131D31] hover:bg-[#1E293B] border border-[#1E293B] text-[#F1F5F9] font-sans font-semibold text-sm rounded-lg transition-colors"
+            className="px-6 py-4 bg-[#131D31] hover:bg-[#1E293B] border border-[#1E293B] text-[#F1F5F9] font-sans font-semibold text-sm rounded-lg transition-colors inline-flex items-center justify-center"
           >
             GET IN TOUCH
           </a>
@@ -123,22 +123,22 @@ export default function T2Hero() {
         </motion.div>
 
         {/* Metric Highlight Strip */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 pt-4">
           <div className="bg-[#131D31] border border-[#1E293B] p-6 rounded-xl space-y-1">
             <span className="font-mono text-xs text-slate-400">MODULAR COMPONENT LIBRARY</span>
-            <div className="text-3xl font-bold font-display text-[#3B82F6]">120+ Components</div>
+            <div className="text-2xl sm:text-3xl font-bold font-display text-[#3B82F6]">120+ Components</div>
             <p className="text-xs text-slate-400">Design system tokens & reusable primitives</p>
           </div>
 
           <div className="bg-[#131D31] border border-[#1E293B] p-6 rounded-xl space-y-1">
             <span className="font-mono text-xs text-slate-400">CROSS-PLATFORM DEPLOYMENT</span>
-            <div className="text-3xl font-bold font-display text-[#3B82F6]">iOS, Android & Web</div>
+            <div className="text-2xl sm:text-3xl font-bold font-display text-[#3B82F6]">iOS, Android & Web</div>
             <p className="text-xs text-slate-400">Single codebase Expo & Next.js integration</p>
           </div>
 
           <div className="bg-[#131D31] border border-[#1E293B] p-6 rounded-xl space-y-1">
             <span className="font-mono text-xs text-slate-400">PERFORMANCE TARGET</span>
-            <div className="text-3xl font-bold font-display text-[#3B82F6]">60 FPS Fluid UI</div>
+            <div className="text-2xl sm:text-3xl font-bold font-display text-[#3B82F6]">60 FPS Fluid UI</div>
             <p className="text-xs text-slate-400">Sub-100ms render pipeline optimization</p>
           </div>
         </div>

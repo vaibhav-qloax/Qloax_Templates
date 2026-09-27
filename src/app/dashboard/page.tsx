@@ -56,28 +56,28 @@ export default function DashboardPage() {
       <div className="fixed inset-0 z-[1] pointer-events-none bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
       {/* Main Container */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 space-y-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 md:py-12 space-y-6 sm:space-y-8">
         
         {/* Sleek Bright Header */}
-        <header className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-6 md:p-8 shadow-[0_8px_32px_0_rgba(82,39,255,0.2)] flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <header className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-5 sm:p-6 md:p-8 shadow-[0_8px_32px_0_rgba(82,39,255,0.2)] flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6">
           <div className="space-y-1">
-            <div className="flex items-center gap-3">
-              <span className="relative flex h-3 w-3">
+            <div className="flex items-center gap-2.5 sm:gap-3">
+              <span className="relative flex h-3 w-3 shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-3 w-3 bg-[#00F0FF]"></span>
               </span>
-              <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-cyan-200 to-purple-400">
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-cyan-200 to-purple-400">
                 QLOAX TEMPLATE HUB
               </h1>
             </div>
-            <p className="text-sm text-neutral-400 pl-6">
+            <p className="text-xs sm:text-sm text-neutral-400 pl-5 sm:pl-6">
               Interactive Website Showcase & Preview Dashboard
             </p>
           </div>
 
-          <div className="flex items-center gap-3 bg-white/5 border border-white/10 px-4 py-2 rounded-xl backdrop-blur-md">
-            <Sparkles className="w-4 h-4 text-cyan-400 animate-pulse" />
-            <span className="text-xs text-neutral-400">Active Selection:</span>
+          <div className="flex items-center gap-3 bg-white/5 border border-white/10 px-3.5 py-2 rounded-xl backdrop-blur-md self-start md:self-auto">
+            <Sparkles className="w-4 h-4 text-cyan-400 animate-pulse shrink-0" />
+            <span className="text-xs text-neutral-400">Active:</span>
             <span className="text-xs font-semibold text-cyan-300">
               {TEMPLATES.find((t) => t.id === activeTemplate)?.name}
             </span>
@@ -85,7 +85,7 @@ export default function DashboardPage() {
         </header>
 
         {/* Template Cards Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
           {TEMPLATES.map((tmpl) => {
             const isActive = activeTemplate === tmpl.id;
             return (
@@ -98,26 +98,26 @@ export default function DashboardPage() {
                 }`}
               >
                 {/* Card Header Bar */}
-                <div className="p-4 bg-white/5 border-b border-white/10 flex items-center justify-between z-10">
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-mono font-bold text-cyan-400 tracking-wider">
+                <div className="p-3.5 sm:p-4 bg-white/5 border-b border-white/10 flex items-center justify-between z-10 gap-2">
+                  <div className="flex items-center gap-2 truncate">
+                    <span className="text-xs font-mono font-bold text-cyan-400 tracking-wider shrink-0">
                       {tmpl.number}
                     </span>
-                    <span className="text-white/30">•</span>
-                    <h2 className="text-sm font-bold text-white tracking-wide">
+                    <span className="text-white/30 shrink-0">•</span>
+                    <h2 className="text-xs sm:text-sm font-bold text-white tracking-wide truncate">
                       {tmpl.name}
                     </h2>
                   </div>
 
                   {isActive ? (
-                    <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-cyan-300 bg-cyan-500/20 border border-cyan-400/40 px-2.5 py-1 rounded-full shadow-[0_0_10px_rgba(0,240,255,0.3)]">
+                    <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-semibold text-cyan-300 bg-cyan-500/20 border border-cyan-400/40 px-2.5 py-1 rounded-full shadow-[0_0_10px_rgba(0,240,255,0.3)] shrink-0">
                       <CheckCircle2 size={12} />
                       Active
                     </span>
                   ) : (
                     <button
                       onClick={() => setActiveTemplate(tmpl.id)}
-                      className="text-[11px] text-neutral-400 hover:text-white bg-white/5 hover:bg-white/10 px-2.5 py-1 rounded-full border border-white/10 transition-colors"
+                      className="text-[10px] sm:text-[11px] text-neutral-400 hover:text-white bg-white/5 hover:bg-white/10 px-2.5 py-1 rounded-full border border-white/10 transition-colors shrink-0"
                     >
                       Set Active
                     </button>
@@ -152,21 +152,21 @@ export default function DashboardPage() {
                 </div>
 
                 {/* Card Action Footer */}
-                <div className="p-4 bg-white/5 border-t border-white/10 flex items-center gap-3">
+                <div className="p-3.5 sm:p-4 bg-white/5 border-t border-white/10 flex items-center gap-2.5 sm:gap-3">
                   <Link
                     href={tmpl.route}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-white/10 hover:bg-cyan-500/20 hover:border-cyan-400/50 text-white border border-white/15 transition-all duration-200"
+                    className="flex-1 inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-semibold bg-white/10 hover:bg-cyan-500/20 hover:border-cyan-400/50 text-white border border-white/15 transition-all duration-200"
                   >
-                    <Maximize2 size={14} className="text-cyan-400" />
-                    Full Screen Preview
-                    <ExternalLink size={12} className="text-neutral-400" />
+                    <Maximize2 size={13} className="text-cyan-400 shrink-0" />
+                    <span className="truncate">Full Screen Preview</span>
+                    <ExternalLink size={11} className="text-neutral-400 shrink-0 hidden xs:inline" />
                   </Link>
 
                   <Link
                     href={tmpl.route}
-                    className="inline-flex items-center justify-center p-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white shadow-[0_0_15px_rgba(168,85,247,0.4)] transition-all duration-200 hover:scale-105 active:scale-95"
+                    className="inline-flex items-center justify-center p-2 sm:p-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white shadow-[0_0_15px_rgba(168,85,247,0.4)] transition-all duration-200 hover:scale-105 active:scale-95 shrink-0"
                     title="Navigate to Template Page"
                   >
                     <ArrowRight size={16} />
@@ -178,7 +178,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Dashboard Footer */}
-        <footer className="pt-6 border-t border-white/10 text-xs text-neutral-400 flex flex-col sm:flex-row justify-between items-center gap-2">
+        <footer className="pt-6 border-t border-white/10 text-xs text-neutral-400 flex flex-col sm:flex-row justify-between items-center gap-2 text-center sm:text-left">
           <span className="font-mono text-neutral-400">QLOAX Website Engine</span>
           <span className="text-cyan-400/80 font-medium">Liquid Ether Fluid Dynamics Integration</span>
         </footer>

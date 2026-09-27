@@ -20,8 +20,8 @@ export default function T2CTA() {
   };
 
   return (
-    <section id="contact" className="bg-[#FFFFFF] text-slate-900 py-24 border-b border-slate-200/80 font-sans transition-colors duration-500">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 space-y-16">
+    <section id="contact" className="bg-[#FFFFFF] text-slate-900 py-20 sm:py-24 border-b border-slate-200/80 font-sans transition-colors duration-500 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 space-y-12 sm:space-y-16">
         
         {/* Section Header */}
         <motion.div
@@ -34,16 +34,16 @@ export default function T2CTA() {
           <span className="font-mono text-xs text-[#2563EB] uppercase tracking-widest block font-bold">
             // CONVERSION & DIRECT INQUIRY
           </span>
-          <h2 className="font-display font-black text-4xl sm:text-6xl tracking-tight text-slate-900 uppercase">
+          <h2 className="font-display font-black text-3xl sm:text-5xl md:text-6xl tracking-tight text-slate-900 uppercase">
             LET'S BUILD SOMETHING EXTRAORDINARY.
           </h2>
-          <p className="text-slate-600 text-sm sm:text-base font-normal">
+          <p className="text-slate-600 text-xs sm:text-base font-normal leading-relaxed">
             Have a mobile app project, custom Expo/React Native architecture requirement, or enterprise platform inquiry? Send a message below.
           </p>
         </motion.div>
 
         {/* Form & Info Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-start">
           
           {/* Left Column: Form */}
           <motion.div
@@ -51,17 +51,17 @@ export default function T2CTA() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="lg:col-span-8 bg-white border border-slate-200/90 p-8 sm:p-12 rounded-2xl space-y-8 shadow-[0_15px_35px_rgba(15,23,42,0.06)]"
+            className="lg:col-span-8 bg-white border border-slate-200/90 p-5 sm:p-8 md:p-12 rounded-2xl space-y-6 sm:space-y-8 shadow-[0_15px_35px_rgba(15,23,42,0.06)]"
           >
             {formSubmitted ? (
               <div className="py-12 text-center space-y-4">
                 <div className="w-12 h-12 bg-[#2563EB]/10 border border-[#2563EB] text-[#2563EB] rounded-full flex items-center justify-center mx-auto">
                   <CheckCircle2 size={24} />
                 </div>
-                <h3 className="font-display font-bold text-2xl text-slate-900">
+                <h3 className="font-display font-bold text-xl sm:text-2xl text-slate-900">
                   MESSAGE RECEIVED
                 </h3>
-                <p className="text-slate-600 text-sm font-sans max-w-md mx-auto">
+                <p className="text-slate-600 text-xs sm:text-sm font-sans max-w-md mx-auto">
                   Thank you for reaching out. We have logged your request and will respond within 4 business hours.
                 </p>
                 <button
@@ -75,7 +75,7 @@ export default function T2CTA() {
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-8 font-sans">
+              <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8 font-sans">
                 
                 {/* 01 Your Name */}
                 <div className="space-y-2 group">
@@ -145,13 +145,13 @@ export default function T2CTA() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="lg:col-span-4 space-y-8 font-sans"
+            className="lg:col-span-4 space-y-6 sm:space-y-8 font-sans"
           >
             
             {/* Direct Email Card */}
-            <div className="bg-white border border-slate-200/90 p-6 rounded-2xl space-y-4 shadow-[0_10px_25px_rgba(15,23,42,0.04)]">
-              <div className="p-3 bg-slate-100 border border-slate-200 rounded-lg w-fit text-[#2563EB]">
-                <Mail size={20} />
+            <div className="bg-white border border-slate-200/90 p-5 sm:p-6 rounded-2xl space-y-3 sm:space-y-4 shadow-[0_10px_25px_rgba(15,23,42,0.04)]">
+              <div className="p-2.5 sm:p-3 bg-slate-100 border border-slate-200 rounded-lg w-fit text-[#2563EB]">
+                <Mail size={18} />
               </div>
               <div className="space-y-1">
                 <span className="font-mono text-xs text-slate-500 uppercase tracking-wider block font-medium">
@@ -159,7 +159,7 @@ export default function T2CTA() {
                 </span>
                 <a
                   href="mailto:engineering@qloax.com"
-                  className="text-lg font-bold text-slate-900 hover:text-[#2563EB] transition-colors font-mono block"
+                  className="text-base sm:text-lg font-bold text-slate-900 hover:text-[#2563EB] transition-colors font-mono block break-all"
                 >
                   engineering@qloax.com
                 </a>
@@ -170,7 +170,7 @@ export default function T2CTA() {
             </div>
 
             {/* Social Links Card */}
-            <div className="bg-white border border-slate-200/90 p-6 rounded-2xl space-y-4 shadow-[0_10px_25px_rgba(15,23,42,0.04)]">
+            <div className="bg-white border border-slate-200/90 p-5 sm:p-6 rounded-2xl space-y-4 shadow-[0_10px_25px_rgba(15,23,42,0.04)]">
               <span className="font-mono text-xs text-slate-500 uppercase tracking-wider block font-medium">
                 DEVELOPER PLATFORMS & SOCIALS
               </span>
