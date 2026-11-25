@@ -103,6 +103,10 @@ export default function Capabilities() {
                   <span className={`grid transition-[grid-template-rows,opacity] duration-500 ease-out ${on ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
                     <span className="overflow-hidden">
                       <span className="block max-w-md pl-9 pt-3 text-base leading-relaxed text-navy/75">{c.body}</span>
+                      {/* Phones: the screenshot opens inside the active row */}
+                      <span className="relative mt-4 block aspect-[16/10] overflow-hidden rounded-xl border border-line bg-surface lg:hidden">
+                        <Image src={c.image.src} alt={c.image.alt} fill sizes="92vw" className="object-cover object-left-top" />
+                      </span>
                     </span>
                   </span>
                 </button>
@@ -111,7 +115,7 @@ export default function Capabilities() {
           </div>
 
           {/* Preview */}
-          <div id="cap-panel" role="tabpanel" aria-labelledby={`cap-tab-${cap.id}`} className="lg:col-span-7">
+          <div id="cap-panel" role="tabpanel" aria-labelledby={`cap-tab-${cap.id}`} className="hidden lg:col-span-7 lg:block">
             <div className="lg:sticky lg:top-28">
               <div className="overflow-hidden rounded-2xl border border-line bg-surface shadow-xl shadow-ink/[0.06]">
                 <div aria-hidden className="flex items-center gap-1.5 border-b border-line bg-mist px-4 py-2.5">

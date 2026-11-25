@@ -43,19 +43,21 @@ export default function Hero() {
       {/* 1. Background establishes: the PDF cover figure (Fig. 01, latent lattice). */}
       <motion.div
         aria-hidden
-        className="absolute inset-0 z-0"
+        className="relative z-0 mt-16 h-[44svh] w-full md:absolute md:inset-0 md:mt-0 md:h-auto"
         style={{ y: figureY }}
         initial={reduce ? false : { opacity: 0, scale: 1.04 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.6, ease: EASE }}
       >
         <motion.div className="absolute inset-[-2%]" style={{ x: sx, y: sy }}>
-          <LatticeFigure className="h-full w-full opacity-40 md:opacity-100" />
+          <LatticeFigure className="h-full w-full" />
         </motion.div>
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-paper via-paper/70 to-transparent md:via-paper/40" />
+        {/* Phones: soft fade into the copy below; larger screens: fade behind the copy on the left. */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-b from-transparent to-paper md:hidden" />
+        <div className="pointer-events-none absolute inset-0 hidden bg-gradient-to-r from-paper via-paper/40 to-transparent md:block" />
       </motion.div>
 
-      <motion.div style={{ y: copyY, opacity: copyOpacity }} className="container-site pointer-events-none relative z-10 flex flex-1 flex-col justify-center pb-16 pt-32">
+      <motion.div style={{ y: copyY, opacity: copyOpacity }} className="container-site pointer-events-none relative z-10 flex flex-1 flex-col justify-center pb-12 pt-2 md:pb-16 md:pt-32">
         {/* 2. Eyebrow */}
         <motion.p className="eyebrow flex items-center gap-3" {...enter(0.25)}>
           <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-amber" />

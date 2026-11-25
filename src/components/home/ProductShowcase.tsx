@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "framer-motion";
 import Reveal from "@/components/motion/Reveal";
 import ProjectCard from "./ProjectCard";
@@ -96,14 +96,50 @@ export default function ProductShowcase() {
           <p className="font-mono text-xs font-medium uppercase tracking-widest text-navy">// The portfolio</p>
           <p className="mt-3 font-display text-4xl font-semibold uppercase tracking-tight text-ink">What we&apos;ve built</p>
         </Reveal>
-        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
-          {PROJECTS.map((p, i) => (
-            <Reveal key={p.slug} delay={(i % 2) * 0.05}>
-              <ProjectCard project={p} />
-            </Reveal>
-          ))}
-        </div>
+        <PhoneCarousel />
       </div>
     </section>
+  );
+}
+
+/**
+ * Phones: a swipeable, snapping row of the same cards with a position counter.
+ * Tablets: a two-column grid.
+ */
+function PhoneCarousel() {
+  const [index, setIndex] = useState(0);
+  const onScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const el = e.currentTarget;
+    const card = el.firstElementChild as HTMLElement | null;
+    if (!card) return;
+    setIndex(Math.min(PROJECTS.length - 1, Math.round(el.scrollLeft / (card.offsetWidth + 16))));
+  };
+
+  return (
+    <>
+      <div
+        onScroll={onScroll}
+        className="-mx-[var(--gutter)] mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-[var(--gutter)] pb-2 [scrollbar-width:none] sm:mx-0 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-0 [&::-webkit-scrollbar]:hidden"
+        aria-label="Portfolio"
+      >
+        {PROJECTS.map((p, i) => (
+          <Reveal key={p.slug} delay={(i % 2) * 0.05} className="w-[84vw] max-w-[22rem] shrink-0 snap-center sm:w-auto sm:max-w-none">
+            <ProjectCard project={p} />
+          </Reveal>
+        ))}
+      </div>
+      {/* Position and swipe hint (phones only) */}
+      <div className="mt-6 flex items-center justify-between font-mono text-[11px] uppercase tracking-label text-mute sm:hidden">
+        <span>
+          {String(index + 1).padStart(2, "0")} / {String(PROJECTS.length).padStart(2, "0")}
+        </span>
+        <span className="flex items-center gap-1.5">
+          {PROJECTS.map((p, i) => (
+            <span key={p.slug} className={`h-1 rounded-full transition-all duration-300 ${i === index ? "w-6 bg-navy" : "w-1.5 bg-line"}`} />
+          ))}
+        </span>
+        <span>Swipe →</span>
+      </div>
+    </>
   );
 }

@@ -70,7 +70,7 @@ function ChapterBlock({ chapter, index, total }: { chapter: Chapter; index: numb
           {/* Large faint chapter number behind the text */}
           <span
             aria-hidden
-            className="pointer-events-none absolute -left-2 -top-32 select-none font-display text-[10rem] font-medium leading-none tracking-tighter text-transparent [-webkit-text-stroke:1.5px_rgba(42,42,42,0.16)] lg:-top-52 lg:text-[13rem]"
+            className="pointer-events-none absolute -left-2 -top-32 hidden select-none lg:block font-display text-[10rem] font-medium leading-none tracking-tighter text-transparent [-webkit-text-stroke:1.5px_rgba(42,42,42,0.16)] lg:-top-52 lg:text-[13rem]"
           >
             {String(index + 1).padStart(2, "0")}
           </span>
