@@ -1,40 +1,50 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 
+let instance: Lenis | null = null;
+
+/** Access the active Lenis instance (null on touch, reduced motion or before mount). */
+export const getLenis = () => instance;
+
+/**
+ * Smooth wheel scrolling on desktop only. Touch devices and reduced-motion users
+ * keep native scrolling. No scroll hijacking: Lenis only smooths the wheel.
+ */
 export default function LenisProvider({ children }: { children: React.ReactNode }) {
-  const lenisRef = useRef<Lenis | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
-    // 165Hz responsive smooth scroll configuration
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const coarse = window.matchMedia("(pointer: coarse)").matches;
+    if (reduce || coarse) return;
+
     const lenis = new Lenis({
-      duration: 0.85,
+      duration: 0.9,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: "vertical",
-      gestureOrientation: "vertical",
       smoothWheel: true,
-      wheelMultiplier: 0.95,
-      touchMultiplier: 1.2,
-      syncTouch: false,
+      anchors: { offset: -80 },
+    });
+    instance = lenis;
+
+    let raf = requestAnimationFrame(function loop(time) {
+      lenis.raf(time);
+      raf = requestAnimationFrame(loop);
     });
 
-    lenisRef.current = lenis;
-
-    let rafId: number;
-    function raf(time: number) {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    }
-
-    rafId = requestAnimationFrame(raf);
-
     return () => {
-      cancelAnimationFrame(rafId);
+      cancelAnimationFrame(raf);
       lenis.destroy();
+      instance = null;
     };
   }, []);
 
+  // New page: start at the top unless a hash is targeted.
+  useEffect(() => {
+    if (!window.location.hash) instance?.scrollTo(0, { immediate: true });
+  }, [pathname]);
+
   return <>{children}</>;
 }
-

@@ -39,7 +39,7 @@ export default function T1Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative bg-[#030303] text-white min-h-[450vh]"
+      className="relative bg-[#ffffff] text-[#000000] min-h-[450vh]"
     >
       {/* Sticky Viewport Container */}
       <div className="sticky top-0 h-screen w-full flex flex-col justify-between pt-32 pb-12 overflow-hidden">
@@ -54,14 +54,14 @@ export default function T1Hero() {
           extension=".jpg"
         />
 
-        {/* 2. Overlays (Crisp right-side visibility with subtle minimal red atmospheric glow) */}
+        {/* 2. Overlays (Crisp right-side visibility with subtle minimal atmospheric glow) */}
         <div className="absolute inset-0 pointer-events-none z-[1]">
-          {/* Subtle soft ambient red tint on background frames */}
-          <div className="absolute top-1/4 right-1/4 w-[450px] h-[450px] bg-[#C40024]/[0.06] rounded-full blur-[160px]" />
-          {/* Horizontal contrast gradient: dark on left for text, clear on right */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#030303]/90 via-[#030303]/35 to-transparent w-full md:w-[65%]" />
+          {/* Subtle soft ambient navy tint on background frames */}
+          <div className="absolute top-1/4 right-1/4 w-[450px] h-[450px] bg-[#14213d]/[0.05] rounded-full blur-[160px]" />
+          {/* Horizontal contrast gradient: pure white on left for text, clear on right */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#ffffff] via-[#ffffff]/85 to-transparent w-full md:w-[70%]" />
           {/* Minimal top and bottom edge blending */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#030303]/50 via-transparent to-[#030303]/60" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#ffffff]/70 via-transparent to-[#ffffff]" />
         </div>
 
         {/* 3. Phase 1: Initial Hero Main Content (Anchored flush to left side) */}
@@ -77,7 +77,7 @@ export default function T1Hero() {
                 animate={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)", y: 0 }}
                 transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
               >
-                <span className="block font-mono text-xs md:text-sm text-[#C40024] tracking-widest uppercase mb-1">
+                <span className="block font-mono text-xs md:text-sm text-[#14213d] font-bold tracking-widest uppercase mb-1">
                   [ COMPANY / QLOAX ]
                 </span>
               </motion.div>
@@ -86,11 +86,11 @@ export default function T1Hero() {
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className="font-display font-black text-5xl sm:text-7xl md:text-8xl lg:text-9xl tracking-tighter leading-none uppercase text-left"
+                className="font-display font-black text-5xl sm:text-7xl md:text-8xl lg:text-9xl tracking-tighter leading-none uppercase text-left text-[#000000]"
               >
                 ENGINEERING
                 <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-200 to-neutral-500">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#14213d] via-[#14213d] to-[#000000]">
                   INTELLIGENCE.
                 </span>
               </motion.h1>
@@ -102,7 +102,7 @@ export default function T1Hero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 0.5 }}
-                className="font-sans text-neutral-300 text-base sm:text-lg md:text-xl leading-relaxed drop-shadow"
+                className="font-sans text-[#14213d]/80 text-base sm:text-lg md:text-xl leading-relaxed"
               >
                 Empowering Industry through AI, automation, data engineering, and high-availability enterprise systems.
               </motion.p>
@@ -118,7 +118,7 @@ export default function T1Hero() {
                   onClick={() => {
                     document.getElementById("products")?.scrollIntoView({ behavior: "smooth" });
                   }}
-                  className="px-8 py-4 bg-[#C40024] hover:bg-[#E0002A] text-white text-sm font-semibold rounded-full tracking-wider uppercase transition-all shadow-lg shadow-[#C40024]/20"
+                  className="px-8 py-4 bg-[#14213d] hover:bg-[#000000] text-white text-sm font-semibold rounded-full tracking-wider uppercase transition-all shadow-lg shadow-[#14213d]/20"
                 >
                   EXPLORE QLOAX
                 </MagneticButton>
@@ -128,7 +128,7 @@ export default function T1Hero() {
                   onClick={() => {
                     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
                   }}
-                  className="px-8 py-4 bg-black/40 backdrop-blur-md hover:bg-black/60 border border-white/15 text-white text-sm font-semibold rounded-full tracking-wider uppercase transition-all"
+                  className="px-8 py-4 bg-white hover:bg-[#e5e5e5] border border-[#e5e5e5] text-[#14213d] text-sm font-semibold rounded-full tracking-wider uppercase transition-all shadow-sm"
                 >
                   CONTACT US
                 </MagneticButton>
@@ -146,20 +146,20 @@ export default function T1Hero() {
           }}
           className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none px-6 text-center select-none transform-gpu will-change-transform"
         >
-          {/* Big Stroked Outline QLOAX. (White stroked QL & AX, Red stroked O) */}
+          {/* Big Stroked Outline QLOAX. (Navy stroked QL & AX, Navy stroked O, Amber dot) */}
           <h2 className="font-display font-black text-7xl sm:text-9xl md:text-[16vw] lg:text-[21vw] tracking-tighter leading-none uppercase select-none">
             <span
               className="text-transparent transition-all"
               style={{
-                WebkitTextStroke: "4.5px rgba(255, 255, 255, 0.98)",
+                WebkitTextStroke: "4.5px rgba(20, 33, 61, 0.95)",
               }}
             >
               QL
             </span>
             <span
-              className="text-transparent inline-block transition-all filter drop-shadow-[0_0_35px_rgba(196,0,36,0.75)]"
+              className="text-transparent inline-block transition-all filter drop-shadow-[0_0_35px_rgba(20,33,61,0.35)]"
               style={{
-                WebkitTextStroke: "5.5px #C40024",
+                WebkitTextStroke: "5.5px #14213d",
               }}
             >
               O
@@ -167,15 +167,15 @@ export default function T1Hero() {
             <span
               className="text-transparent transition-all"
               style={{
-                WebkitTextStroke: "4.5px rgba(255, 255, 255, 0.98)",
+                WebkitTextStroke: "4.5px rgba(20, 33, 61, 0.95)",
               }}
             >
               AX
             </span>
             <span
-              className="text-transparent inline-block transition-all filter drop-shadow-[0_0_25px_rgba(196,0,36,0.7)]"
+              className="text-transparent inline-block transition-all filter drop-shadow-[0_0_25px_rgba(252,163,17,0.4)]"
               style={{
-                WebkitTextStroke: "5.5px #C40024",
+                WebkitTextStroke: "5.5px #fca311",
               }}
             >
               .
@@ -184,10 +184,10 @@ export default function T1Hero() {
         </motion.div>
 
         {/* 5. Footer Indicators */}
-        <div className="relative z-10 w-full px-6 sm:px-10 md:px-14 lg:px-16 flex items-center justify-end font-mono text-xs text-neutral-400 border-t border-white/10 pt-6">
+        <div className="relative z-10 w-full px-6 sm:px-10 md:px-14 lg:px-16 flex items-center justify-end font-mono text-xs text-[#14213d]/60 border-t border-[#e5e5e5] pt-6">
           <div className="flex items-center gap-2">
             <span>SCROLL TO DISCOVER</span>
-            <ArrowDown size={14} className="animate-bounce text-[#C40024]" />
+            <ArrowDown size={14} className="animate-bounce text-[#14213d]" />
           </div>
         </div>
 

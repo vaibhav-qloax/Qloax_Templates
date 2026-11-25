@@ -12,22 +12,22 @@ export default function T1Capabilities() {
   const activeCap = QLOAX_CAPABILITIES[activeIndex];
 
   return (
-    <section id="capabilities" className="relative bg-[#050505] text-white py-24 md:py-36 border-t border-white/10 overflow-hidden">
+    <section id="capabilities" className="relative bg-[#ffffff] text-[#000000] py-24 md:py-36 border-t border-[#e5e5e5] overflow-hidden">
       
       {/* Background line accent */}
-      <div className="absolute left-1/2 top-0 bottom-0 w-px bg-white/5 pointer-events-none" />
+      <div className="absolute left-1/2 top-0 bottom-0 w-px bg-[#e5e5e5] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         
         {/* Section Header */}
         <div className="mb-16 space-y-4">
-          <span className="font-mono text-xs text-[#C40024] uppercase tracking-widest">
+          <span className="font-mono text-xs text-[#14213d] uppercase tracking-widest font-bold">
             // CORE CAPABILITIES
           </span>
-          <h2 className="font-display font-black text-4xl sm:text-6xl tracking-tight uppercase">
+          <h2 className="font-display font-black text-4xl sm:text-6xl tracking-tight uppercase text-[#000000]">
             INTELLIGENT SYSTEM ARCHITECTURE.
           </h2>
-          <p className="text-neutral-400 max-w-2xl text-base">
+          <p className="text-[#14213d]/70 max-w-2xl text-base">
             We transform legacy complexity into self-optimizing, cloud-native enterprise intelligence.
           </p>
         </div>
@@ -45,8 +45,8 @@ export default function T1Capabilities() {
                   onClick={() => setActiveIndex(idx)}
                   className={`w-full text-left p-5 rounded-xl border transition-all duration-300 flex items-center justify-between group ${
                     isActive
-                      ? "bg-white/10 border-[#C40024] shadow-lg shadow-[#C40024]/10"
-                      : "bg-white/5 border-white/5 hover:border-white/20 hover:bg-white/8"
+                      ? "bg-white border-[#14213d] ring-1 ring-[#14213d]/20 shadow-md"
+                      : "bg-white border-[#e5e5e5] hover:border-[#14213d] hover:bg-[#e5e5e5]/30 shadow-xs"
                   }`}
                   data-cursor="hover"
                 >
@@ -54,20 +54,20 @@ export default function T1Capabilities() {
                     <div className="flex items-center gap-3">
                       <span
                         className={`font-mono text-xs ${
-                          isActive ? "text-[#C40024] font-bold" : "text-neutral-400"
+                          isActive ? "text-[#14213d] font-bold" : "text-[#14213d]/50"
                         }`}
                       >
                         {cap.number}
                       </span>
                       <h3
                         className={`font-display font-bold text-lg uppercase tracking-tight ${
-                          isActive ? "text-white" : "text-neutral-300 group-hover:text-white"
+                          isActive ? "text-[#14213d]" : "text-[#000000] group-hover:text-[#14213d]"
                         }`}
                       >
                         {cap.title}
                       </h3>
                     </div>
-                    <p className="text-xs text-neutral-400 pl-7 font-sans">
+                    <p className="text-xs text-[#14213d]/60 pl-7 font-sans">
                       {cap.tagline}
                     </p>
                   </div>
@@ -76,8 +76,8 @@ export default function T1Capabilities() {
                     size={18}
                     className={`transition-transform duration-300 ${
                       isActive
-                        ? "text-[#C40024] translate-x-1"
-                        : "text-neutral-400 group-hover:translate-x-1"
+                        ? "text-[#14213d] translate-x-1"
+                        : "text-[#14213d]/40 group-hover:translate-x-1 group-hover:text-[#14213d]"
                     }`}
                   />
                 </button>
@@ -94,11 +94,11 @@ export default function T1Capabilities() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -30, scale: 0.98 }}
                 transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                className="bg-[#090909] border border-white/10 rounded-2xl overflow-hidden shadow-2xl space-y-6"
+                className="bg-white border border-[#e5e5e5] rounded-2xl overflow-hidden shadow-xl space-y-6"
               >
                 {/* Image Container with scale reveal */}
                 <div
-                  className="relative h-64 sm:h-80 w-full overflow-hidden bg-neutral-900"
+                  className="relative h-64 sm:h-80 w-full overflow-hidden bg-neutral-100"
                   data-cursor="view"
                 >
                   <Image
@@ -107,9 +107,9 @@ export default function T1Capabilities() {
                     fill
                     className="object-cover transition-transform duration-700 hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent" />
                   
-                  <div className="absolute top-4 left-4 bg-black/70 backdrop-blur-md px-3 py-1 rounded font-mono text-xs text-neutral-300 border border-white/10">
+                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded font-mono text-xs text-[#14213d] font-semibold border border-[#e5e5e5] shadow-xs">
                     CAPABILITY {activeCap.number} / 05
                   </div>
                 </div>
@@ -117,23 +117,23 @@ export default function T1Capabilities() {
                 {/* Card Content */}
                 <div className="p-8 pt-0 space-y-6">
                   <div>
-                    <h3 className="font-display font-bold text-2xl text-white uppercase tracking-tight">
+                    <h3 className="font-display font-bold text-2xl text-[#000000] uppercase tracking-tight">
                       {activeCap.title}
                     </h3>
-                    <p className="text-sm text-neutral-400 mt-2 leading-relaxed font-sans">
+                    <p className="text-sm text-[#14213d]/70 mt-2 leading-relaxed font-sans">
                       {activeCap.description}
                     </p>
                   </div>
 
                   {/* Features List */}
-                  <div className="space-y-2 pt-2 border-t border-white/10">
-                    <span className="font-mono text-xs text-[#C40024] uppercase tracking-wider">
+                  <div className="space-y-2 pt-2 border-t border-[#e5e5e5]">
+                    <span className="font-mono text-xs text-[#14213d] uppercase tracking-wider font-bold">
                       SYSTEM HIGHLIGHTS
                     </span>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {activeCap.features.map((feat, i) => (
-                        <div key={i} className="flex items-center gap-2 text-xs text-neutral-300">
-                          <CheckCircle2 size={14} className="text-[#C40024] shrink-0" />
+                        <div key={i} className="flex items-center gap-2 text-xs text-[#14213d]/90">
+                          <CheckCircle2 size={14} className="text-[#14213d] shrink-0" />
                           <span>{feat}</span>
                         </div>
                       ))}
@@ -141,14 +141,14 @@ export default function T1Capabilities() {
                   </div>
 
                   {/* Tech Stack Chips */}
-                  <div className="pt-4 border-t border-white/10 flex flex-wrap items-center gap-2 font-mono text-xs">
-                    <span className="text-neutral-400 uppercase text-[10px] tracking-wider mr-2">
+                  <div className="pt-4 border-t border-[#e5e5e5] flex flex-wrap items-center gap-2 font-mono text-xs">
+                    <span className="text-[#14213d]/60 uppercase text-[10px] tracking-wider mr-2 font-bold">
                       TECH STACK:
                     </span>
                     {activeCap.techStack.map((tech, i) => (
                       <span
                         key={i}
-                        className="px-2.5 py-1 bg-white/5 border border-white/10 rounded text-neutral-300"
+                        className="px-2.5 py-1 bg-[#e5e5e5]/60 border border-[#e5e5e5] rounded text-[#14213d]"
                       >
                         {tech}
                       </span>

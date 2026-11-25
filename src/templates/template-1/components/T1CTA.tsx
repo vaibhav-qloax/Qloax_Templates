@@ -6,10 +6,10 @@ import MagneticButton from "@/components/shared/MagneticButton";
 
 export default function T1CTA() {
   return (
-    <section id="contact" className="relative bg-[#030303] text-white py-32 border-t border-white/10 overflow-hidden">
+    <section id="contact" className="relative bg-[#ffffff] text-[#000000] py-32 border-t border-[#e5e5e5] overflow-hidden">
       
-      {/* Red Ambient Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#C40024]/15 rounded-full blur-[180px] pointer-events-none" />
+      {/* Navy Ambient Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#14213d]/[0.05] rounded-full blur-[180px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 text-center space-y-12">
         
@@ -18,7 +18,7 @@ export default function T1CTA() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-mono text-xs text-[#C40024] uppercase tracking-widest block"
+            className="font-mono text-xs text-[#14213d] uppercase tracking-widest block font-bold"
           >
             // INITIATE ENGAGEMENT
           </motion.span>
@@ -28,16 +28,16 @@ export default function T1CTA() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="font-display font-black text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight uppercase leading-none"
+            className="font-display font-black text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight uppercase leading-none text-[#000000]"
           >
             FORGING THE FUTURE
             <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-200 to-neutral-500">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#14213d] via-[#14213d] to-[#000000]">
               OF INTELLIGENT ENTERPRISE.
             </span>
           </motion.h2>
 
-          <p className="text-neutral-400 font-sans text-base sm:text-lg max-w-2xl mx-auto">
+          <p className="text-[#14213d]/70 font-sans text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
             Ready to deploy enterprise AI, stream-line data architecture, or integrate custom intelligent automation into your operations?
           </p>
         </div>
@@ -52,7 +52,7 @@ export default function T1CTA() {
         >
           <MagneticButton
             dataCursor="open"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-5 bg-[#C40024] hover:bg-[#E0002A] text-white font-bold text-sm uppercase rounded-full tracking-wider transition-all shadow-xl shadow-[#C40024]/25"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-5 bg-[#14213d] hover:bg-[#000000] text-white font-bold text-sm uppercase rounded-full tracking-wider transition-all shadow-xl shadow-[#14213d]/20"
           >
             <Calendar size={18} />
             BOOK A FREE STRATEGY CALL
@@ -61,7 +61,7 @@ export default function T1CTA() {
 
           <MagneticButton
             dataCursor="open"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-5 bg-white/5 hover:bg-white/10 border border-white/15 text-white font-bold text-sm uppercase rounded-full tracking-wider transition-all"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-5 bg-[#e5e5e5]/80 hover:bg-[#ffffff] border border-[#e5e5e5] text-[#14213d] font-bold text-sm uppercase rounded-full tracking-wider transition-all shadow-xs"
           >
             <Users size={18} />
             GET A DEDICATED TEAM
@@ -70,22 +70,22 @@ export default function T1CTA() {
         </motion.div>
 
         {/* Direct Contact Info */}
-        <div className="pt-12 border-t border-white/10 max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-neutral-400 gap-4">
+        <div className="pt-12 border-t border-[#e5e5e5] max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-[#14213d]/70 gap-4">
           <div>
-            <span className="text-neutral-500 block">DIRECT INQUIRIES:</span>
-            <a href="mailto:engineering@qloax.com" className="text-white hover:text-[#C40024] transition-colors">
+            <span className="text-[#14213d]/50 block">DIRECT INQUIRIES:</span>
+            <a href="mailto:engineering@qloax.com" className="text-[#14213d] font-bold hover:text-[#000000] transition-colors">
               engineering@qloax.com
             </a>
           </div>
 
           <div>
-            <span className="text-neutral-500 block">RESPONSE TIME:</span>
-            <span className="text-white">UNDER 4 HOURS</span>
+            <span className="text-[#14213d]/50 block">RESPONSE TIME:</span>
+            <span className="text-[#14213d] font-bold">UNDER 4 HOURS</span>
           </div>
 
           <div>
-            <span className="text-neutral-500 block">HEADQUARTERS:</span>
-            <span className="text-white">GLOBAL / HYBRID</span>
+            <span className="text-[#14213d]/50 block">HEADQUARTERS:</span>
+            <span className="text-[#14213d] font-bold">GLOBAL / HYBRID</span>
           </div>
         </div>
 

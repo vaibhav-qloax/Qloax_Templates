@@ -1,11 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 3 3 3;
-    --foreground: 255 255 255;
+    --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-display: "Space Grotesk", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+    --gutter: clamp(1.25rem, 4vw, 4rem);
   }
 
   html {
@@ -15,147 +19,423 @@
   }
 
   body {
-    background-color: #030303;
-    color: #f5f5f5;
-    font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    overflow-x: clip;
-    margin: 0;
-    padding: 0;
+    background-color: #f6f5f2;
+    color: #2a2a2a;
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
     text-rendering: optimizeLegibility;
-    overscroll-behavior-y: none;
-    -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
   }
 
   ::selection {
-    background-color: #C40024;
+    background-color: #2a2a2a;
     color: #ffffff;
   }
-}
 
-/* 165Hz Hardware Acceleration & Performance Hints */
-* {
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  box-sizing: border-box;
-}
+  /* Visible, consistent keyboard focus everywhere. */
+  :focus-visible {
+    outline: 2px solid #4b7be5;
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
 
-.transform-gpu {
-  transform: translate3d(0, 0, 0);
-  will-change: transform;
-}
-
-/* Custom Cursor Rules */
-@media (min-width: 1024px) {
-  .has-custom-cursor,
-  .has-custom-cursor * {
-    cursor: none !important;
+  [id] {
+    scroll-margin-top: 5.5rem;
   }
 }
 
-/* Lenis CSS */
-html.lenis, html.lenis body {
-  height: auto;
-}
-
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
-.lenis.lenis-scrolling iframe {
-  pointer-events: none;
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #030303;
-}
-::-webkit-scrollbar-thumb {
-  background: #222222;
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #C40024;
-}
-
-/* Utilities for clip-path reveal text and images */
-.clip-text-reveal {
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-}
-
-.glow-red {
-  box-shadow: 0 0 30px rgba(196, 0, 36, 0.25);
-}
-
-.border-grid {
-  border-color: rgba(255, 255, 255, 0.07);
-}
-
-/* Liquid Glass Utilities */
-.liquid-glass {
-  background: rgba(255, 255, 255, 0.01);
-  background-blend-mode: luminosity;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border: none;
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
-  position: relative;
-  overflow: hidden;
-}
-
-.liquid-glass::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1.4px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.45) 0%,
-    rgba(255, 255, 255, 0.15) 20%,
-    rgba(255, 255, 255, 0) 40%,
-    rgba(255, 255, 255, 0) 60%,
-    rgba(255, 255, 255, 0.15) 80%,
-    rgba(255, 255, 255, 0.45) 100%
-  );
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-@keyframes blurFadeUp {
-  from {
-    opacity: 0;
-    filter: blur(20px);
-    transform: translateY(40px);
+@layer components {
+  /* Card language carried over from the original site. */
+  .card {
+    background: #fbfaf8;
+    border: 1px solid #e0ddd6;
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px -18px rgba(42, 42, 42, 0.25);
   }
-  to {
-    opacity: 1;
-    filter: blur(0);
+
+  .container-site {
+    margin-inline: auto;
+    width: 100%;
+    max-width: 88rem;
+    padding-inline: var(--gutter);
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: #6b6863;
+  }
+
+  .h-section {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.045em;
+    color: #2a2a2a;
+    font-size: clamp(2.25rem, 5.2vw, 4.75rem);
+    line-height: 0.98;
+  }
+
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .link-underline:hover,
+  .link-underline:focus-visible {
+    background-size: 100% 1px;
+  }
+
+  /* Technical grid used behind light sections. */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(42, 42, 42, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(42, 42, 42, 0.06) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  .skip-link {
+    position: fixed;
+    left: 1rem;
+    top: 1rem;
+    z-index: 100;
+    transform: translateY(-6rem);
+    background: #2a2a2a;
+    padding: 0.75rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: #ffffff;
+    transition: transform 0.2s ease;
+  }
+  .skip-link:focus {
     transform: translateY(0);
   }
 }
 
-.animate-blur-fade-up {
-  animation: blurFadeUp 1s ease-out forwards;
+/* PDF figures are vivid blue; mute them to sit inside the slate palette. */
+.brand-figure {
+  /* The PDF's blue figures already match the brand blue; keep them true. */
+  filter: none;
+}
+
+/* ---------- Fig. 01 lattice (hero) ---------- */
+.lattice-figure svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Landing build: nothing shows until JS starts the sequence, so no flash. */
+.lattice-figure .lt-build,
+.lattice-figure .lt-link,
+.lattice-figure .lt-envelope,
+.lattice-figure .lt-pin,
+.lattice-figure .lt-labels {
   opacity: 0;
+}
+/* Solid cubes: drop from height, overshoot, settle; the top face flashes on impact. */
+.lattice-figure.is-building .lt-build {
+  transform-box: fill-box;
+  animation: lt-drop 0.95s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s) both;
+}
+.lattice-figure.is-building .lt-build .lt-top,
+.lattice-figure.is-building .lt-build .lt-left,
+.lattice-figure.is-building .lt-build .lt-right {
+  animation: lt-flash 0.7s ease-out calc(var(--d, 0s) + 0.42s) backwards;
+}
+/* Wire cells: edges trace themselves in, then the hatching fades up. */
+.lattice-figure .lt-wire .lt-build {
+  opacity: 1;
+}
+.lattice-figure.is-building .lt-wire .lt-build {
+  animation: none;
+}
+.lattice-figure .lt-edge {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.lattice-figure.is-building .lt-edge {
+  animation: lt-draw 0.7s cubic-bezier(0.65, 0, 0.35, 1) var(--d, 0s) both;
+}
+.lattice-figure .lt-hatch {
+  opacity: 0;
+}
+.lattice-figure.is-building .lt-hatch {
+  animation: lt-fade 0.8s ease-out calc(var(--d, 0s) + 0.5s) both;
+}
+/* Floating cubes swoop in from the side instead of dropping. */
+.lattice-figure.is-building .lt-float .lt-build {
+  animation: lt-swoop 1.1s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s) both;
+}
+/* After the build: one diagonal ripple through the stack. */
+.lattice-figure.is-wave .lt-cube:not(.lt-float) .lt-bob {
+  animation: lt-wave 0.9s cubic-bezier(0.37, 0, 0.63, 1) var(--w, 0s) both;
+}
+.lattice-figure.is-building .lt-envelope {
+  stroke-dasharray: 1;
+  animation: lt-draw 1.1s cubic-bezier(0.65, 0, 0.35, 1) 1.5s both;
+}
+.lattice-figure.is-building .lt-link {
+  stroke-dasharray: 1;
+  animation: lt-draw 0.6s cubic-bezier(0.65, 0, 0.35, 1) 1.9s both;
+}
+.lattice-figure.is-building .lt-pin {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lt-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 2.3s both;
+}
+.lattice-figure.is-building .lt-labels {
+  animation: lt-fade 1s ease-out 2.4s both;
+}
+
+.lattice-figure .lt-grid {
+  opacity: 0;
+}
+.lattice-figure.is-building .lt-grid {
+  animation: lt-grid-in 1.6s ease-out 0s both;
+}
+@keyframes lt-grid-in {
+  from { opacity: 0; }
+  to { opacity: 0.6; }
+}
+
+/* Idle: floating cubes bob gently once built; the LIVE dot breathes. */
+.lattice-figure.is-built .lt-float .lt-bob {
+  animation: lt-bob 6s ease-in-out infinite;
+}
+.lattice-figure.is-built .lt-float:nth-of-type(2n) .lt-bob {
+  animation-duration: 7.5s;
+  animation-delay: -2s;
+}
+.lattice-figure .lt-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lt-pulse 2.4s ease-in-out 3s infinite;
+}
+
+/* Mouse lift (transform set per cube from JS) and hover highlight. */
+.lattice-figure .lt-cube {
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+.lattice-figure .lt-cube .lt-top,
+.lattice-figure .lt-cube .lt-left,
+.lattice-figure .lt-cube .lt-right {
+  transition: filter 0.35s ease;
+}
+.lattice-figure .lt-cube.is-hot .lt-top {
+  filter: brightness(1.18) saturate(1.1);
+}
+.lattice-figure .lt-cube.is-hot .lt-left,
+.lattice-figure .lt-cube.is-hot .lt-right {
+  filter: brightness(1.12);
+}
+
+/* Drag any cube out; it springs back home on release. */
+.lattice-figure.is-built .lt-cube {
+  cursor: grab;
+}
+.lattice-figure.is-grabbing,
+.lattice-figure.is-grabbing * {
+  cursor: grabbing !important;
+}
+.lattice-figure .lt-cube.is-dragging {
+  transition: none;
+  filter: drop-shadow(0 18px 18px rgba(15, 42, 110, 0.28));
+}
+.lattice-figure .lt-cube.is-returning {
+  transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Pins: labels hidden until hovered/tapped, or during the landing introduction. */
+.lattice-figure .lt-node {
+  cursor: pointer;
+}
+.lattice-figure .lt-hit {
+  pointer-events: all;
+}
+.lattice-figure .lt-label {
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.45s ease,
+    transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+.lattice-figure.show-labels .lt-label,
+.lattice-figure .lt-node.is-active .lt-label {
+  opacity: 1;
+  transform: translateY(0);
+}
+.lattice-figure.show-labels .lt-node:nth-of-type(2) .lt-label { transition-delay: 0.12s; }
+.lattice-figure.show-labels .lt-node:nth-of-type(3) .lt-label { transition-delay: 0.24s; }
+.lattice-figure.show-labels .lt-node:nth-of-type(4) .lt-label { transition-delay: 0.36s; }
+.lattice-figure .lt-ring,
+.lattice-figure .lt-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.lattice-figure .lt-node.is-active .lt-ring {
+  transform: scale(1.6);
+}
+.lattice-figure .lt-node.is-active .lt-dot {
+  transform: scale(1.25);
+}
+
+@keyframes lt-drop {
+  0% { opacity: 0; transform: translateY(-180px); }
+  45% { opacity: 1; }
+  62% { transform: translateY(10px); }
+  80% { transform: translateY(-4px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes lt-flash {
+  0% { filter: brightness(1.55) saturate(1.2); }
+  100% { filter: brightness(1) saturate(1); }
+}
+@keyframes lt-swoop {
+  0% { opacity: 0; transform: translate(140px, -70px); }
+  60% { opacity: 1; }
+  100% { opacity: 1; transform: translate(0, 0); }
+}
+@keyframes lt-wave {
+  0%, 100% { transform: translateY(0); }
+  45% { transform: translateY(-22px); }
+}
+@keyframes lt-draw {
+  from { opacity: 1; stroke-dashoffset: 1; }
+  to { opacity: 1; stroke-dashoffset: 0; }
+}
+@keyframes lt-pop {
+  from { opacity: 0; transform: scale(0); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes lt-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes lt-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes lt-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.35); opacity: 0.6; }
+}
+
+/* Reduced motion: show the finished figure at once; labels still work on hover. */
+@media (prefers-reduced-motion: reduce) {
+  .lattice-figure .lt-build,
+  .lattice-figure .lt-link,
+  .lattice-figure .lt-envelope,
+  .lattice-figure .lt-pin,
+  .lattice-figure .lt-labels {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+  .lattice-figure .lt-grid {
+    opacity: 0.6 !important;
+  }
+  .lattice-figure .lt-hatch {
+    opacity: 1 !important;
+  }
+  .lattice-figure .lt-edge {
+    stroke-dashoffset: 0 !important;
+  }
+  .lattice-figure * {
+    animation: none !important;
+  }
+}
+
+/* Fig. 04 amber marker */
+.nc-pulse {
+  animation: lt-pulse 2.4s ease-in-out infinite;
+}
+
+/* ---------- Closing section: light flowing through the grid to the CTA ---------- */
+.cta-flow path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.cta-trail {
+  stroke: #4b7be5;
+  stroke-width: 1.4;
+  stroke-dasharray: 160 1300;
+  stroke-dashoffset: 160;
+  opacity: 0;
+  animation: cta-trail var(--dur, 10s) linear var(--delay, 0s) infinite;
+}
+@keyframes cta-trail {
+  0% { stroke-dashoffset: 160; opacity: 0; }
+  8% { opacity: 0.28; }
+  62% { opacity: 0.28; }
+  70% { stroke-dashoffset: -1000; opacity: 0; }
+  100% { stroke-dashoffset: -1000; opacity: 0; }
+}
+/* A line started by a tap: one run to the button. */
+.cta-tap {
+  stroke: #4b7be5;
+  stroke-width: 1.8;
+  stroke-dasharray: 180 1300;
+  stroke-dashoffset: 180;
+  animation: cta-tap 2.8s cubic-bezier(0.45, 0, 0.25, 1) forwards;
+}
+@keyframes cta-tap {
+  0% { stroke-dashoffset: 180; opacity: 0; }
+  8% { opacity: 0.4; }
+  88% { opacity: 0.4; }
+  100% { stroke-dashoffset: -1000; opacity: 0; }
+}
+/* Arrival: a soft ring spreads from the button. */
+.cta-charged::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  pointer-events: none;
+  animation: cta-ring 0.9s ease-out;
+}
+@keyframes cta-ring {
+  from { box-shadow: 0 0 0 0 rgba(75, 123, 229, 0.25); }
+  to { box-shadow: 0 0 0 14px rgba(75, 123, 229, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cta-flow { display: none; }
+  .cta-charged::after { animation: none; }
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Reduced motion: keep everything visible, remove movement. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

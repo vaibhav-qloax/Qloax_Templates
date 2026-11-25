@@ -39,15 +39,15 @@ export default function T1ContinuousStory() {
   });
 
   return (
-    <section ref={containerRef} className="relative bg-[#030303] text-white min-h-[300vh] py-24">
+    <section ref={containerRef} className="relative bg-[#ffffff] text-[#000000] min-h-[300vh] py-24 border-t border-[#e5e5e5]">
       {/* Sticky Full-Viewport Container */}
       <div className="sticky top-0 h-screen flex flex-col justify-center items-center overflow-hidden px-6">
         
-        {/* Dynamic Background Red Glow */}
-        <div className="absolute w-[600px] h-[600px] bg-[#C40024]/10 rounded-full blur-[180px] pointer-events-none" />
+        {/* Dynamic Background Navy Ambient Glow */}
+        <div className="absolute w-[600px] h-[600px] bg-[#14213d]/[0.05] rounded-full blur-[180px] pointer-events-none" />
 
         <div className="max-w-5xl mx-auto w-full text-center space-y-12 relative z-10">
-          <span className="font-mono text-xs text-[#C40024] tracking-widest uppercase block">
+          <span className="font-mono text-xs text-[#14213d] font-bold tracking-widest uppercase block">
             // CONTINUOUS SYSTEM TRANSFORMATION
           </span>
 
@@ -79,19 +79,19 @@ export default function T1ContinuousStory() {
                   style={{ opacity, scale, y }}
                   className="absolute inset-0 flex flex-col items-center justify-center space-y-4"
                 >
-                  <span className="font-mono text-xs text-neutral-400 border border-white/10 px-3 py-1 rounded-full bg-white/5">
+                  <span className="font-mono text-xs text-[#14213d] border border-[#e5e5e5] px-3 py-1 rounded-full bg-[#e5e5e5]/50 shadow-xs font-semibold">
                     STAGE {stage.step} / 04
                   </span>
                   
-                  <h3 className="font-display font-black text-5xl sm:text-7xl md:text-8xl tracking-tighter uppercase text-white">
+                  <h3 className="font-display font-black text-5xl sm:text-7xl md:text-8xl tracking-tighter uppercase text-[#000000]">
                     {stage.title}
                   </h3>
 
-                  <p className="text-lg sm:text-2xl font-mono text-[#C40024] max-w-2xl">
+                  <p className="text-lg sm:text-2xl font-mono text-[#14213d] max-w-2xl font-semibold">
                     "{stage.subtitle}"
                   </p>
 
-                  <p className="text-sm font-sans text-neutral-400 max-w-lg leading-relaxed">
+                  <p className="text-sm font-sans text-[#14213d]/70 max-w-lg leading-relaxed">
                     {stage.detail}
                   </p>
                 </motion.div>
@@ -99,11 +99,11 @@ export default function T1ContinuousStory() {
             })}
           </div>
 
-          <div className="font-mono text-xs text-neutral-400 pt-8 border-t border-white/10 flex items-center justify-center gap-4">
+          <div className="font-mono text-xs text-[#14213d]/60 pt-8 border-t border-[#e5e5e5] flex items-center justify-center gap-4">
             <span>SCROLL TO ADVANCE TRANSFORMATION</span>
-            <div className="w-12 h-1 bg-white/10 rounded-full overflow-hidden">
+            <div className="w-12 h-1 bg-[#e5e5e5] rounded-full overflow-hidden">
               <motion.div
-                className="h-full bg-[#C40024]"
+                className="h-full bg-[#14213d]"
                 style={{ scaleX: scrollYProgress, transformOrigin: "left" }}
               />
             </div>

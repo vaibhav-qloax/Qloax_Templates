@@ -88,7 +88,7 @@ export default function CustomCursor() {
     <>
       {/* Precision Dot */}
       <motion.div
-        className="fixed top-0 left-0 w-2.5 h-2.5 bg-[#C40024] rounded-full pointer-events-none z-[9999] mix-blend-difference transform-gpu will-change-transform"
+        className="fixed top-0 left-0 w-2.5 h-2.5 bg-[#2a2a2a] rounded-full pointer-events-none z-[9999] transform-gpu will-change-transform"
         style={{
           x: cursorX,
           y: cursorY,
@@ -101,10 +101,10 @@ export default function CustomCursor() {
       <motion.div
         className={`fixed top-0 left-0 pointer-events-none z-[9998] flex items-center justify-center rounded-full transition-colors duration-150 transform-gpu will-change-transform ${
           isTextCursor
-            ? "bg-[#C40024] text-white text-[10px] font-mono font-bold tracking-wider uppercase shadow-lg px-3 py-1"
+            ? "bg-[#2a2a2a] text-white text-[10px] font-mono font-bold tracking-wider uppercase shadow-lg px-3 py-1"
             : cursorVariant === "hover"
-            ? "border border-[#C40024] bg-[#C40024]/10"
-            : "border border-white/20"
+            ? "border border-[#2a2a2a] bg-[#2a2a2a]/10"
+            : "border border-[#000000]/25"
         }`}
         animate={{
           scale: isTextCursor ? 1.4 : cursorVariant === "hover" ? 1.6 : 1,

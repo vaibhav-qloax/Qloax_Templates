@@ -1,37 +1,37 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/templates/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
       colors: {
-        background: "#030303",
-        "bg-card": "#090909",
-        "bg-elevated": "#111111",
-        "qloax-red": "#C40024",
-        "qloax-red-bright": "#E0002A",
-        "qloax-dark": "#050505",
-        // Template 2 Enterprise Slate Palette
-        "t2-bg": "#090D16",
-        "t2-card": "#131D31",
-        "t2-text": "#F1F5F9",
-        "t2-border": "#1E293B",
-        "t2-accent": "#3B82F6",
+        // Brand palette: light blue, gold, pink and dark gray on a warm off-white light theme.
+        ink: "#2a2a2a",
+        navy: "#2a2a2a", // primary dark (text, buttons, dark band)
+        blue: { DEFAULT: "#4b7be5", deep: "#2f5bc4", soft: "#e6edfc" },
+        amber: "#e4a800", // gold
+        pink: "#d85d8a",
+        paper: "#f6f5f2",
+        mist: "#eeece7",
+        surface: "#fbfaf8",
+        line: "#e0ddd6",
+        mute: "#6b6863",
       },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "-apple-system", "sans-serif"],
         display: ["var(--font-display)", "system-ui", "sans-serif"],
-        mono: ["var(--font-mono)", "monospace"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       letterSpacing: {
-        tighter: "-0.05em",
-        tight: "-0.03em",
-        widest: "0.2em",
+        tighter: "-0.045em",
+        tight: "-0.025em",
+        label: "0.16em",
+      },
+      maxWidth: {
+        site: "88rem",
+      },
+      transitionTimingFunction: {
+        out: "cubic-bezier(0.16, 1, 0.3, 1)",
       },
     },
   },

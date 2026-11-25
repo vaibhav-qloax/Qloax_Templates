@@ -18,7 +18,7 @@ export default function QloaxGeometricLogo({
     <div
       className={`select-none pointer-events-none group transition-opacity duration-300 ${
         fixed
-          ? "fixed top-24 left-6 sm:left-10 lg:left-20 z-30 hidden md:block opacity-70 hover:opacity-100"
+          ? "fixed top-24 left-6 sm:left-10 lg:left-20 z-30 hidden md:block opacity-75 hover:opacity-100"
           : ""
       } ${className}`}
     >
@@ -26,15 +26,15 @@ export default function QloaxGeometricLogo({
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 174 120"
         style={{ width: size, height: (size * 120) / 174 }}
-        className="transform-gpu filter drop-shadow-[0_0_12px_rgba(255,255,255,0.25)]"
+        className="transform-gpu filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <g
           fill="none"
-          stroke="#FFFFFF"
-          strokeWidth="1.35"
+          stroke="#2a2a2a"
+          strokeWidth="1.45"
           strokeLinecap="round"
           strokeLinejoin="round"
         >
@@ -90,15 +90,14 @@ export default function QloaxGeometricLogo({
           <line x1="66" y1="86" x2="66" y2="97" />
         </g>
 
-        {/* ALL 100% WHITE DOTS - NO RED */}
-        <circle cx="92" cy="11" r="2.5" fill="#FFFFFF" />
-        <circle cx="120" cy="50" r="2.5" fill="#FFFFFF" />
-        <circle cx="32" cy="67" r="2.5" fill="#FFFFFF" />
-        <circle cx="66" cy="97" r="2.5" fill="#FFFFFF" />
+        {/* ACCENT DOTS */}
+        <circle cx="92" cy="11" r="2.5" fill="#e4a800" />
+        <circle cx="120" cy="50" r="2.5" fill="#2a2a2a" />
+        <circle cx="32" cy="67" r="2.5" fill="#2a2a2a" />
+        <circle cx="66" cy="97" r="2.5" fill="#e4a800" />
       </motion.svg>
     </div>
   );
 
   return content;
 }
-
