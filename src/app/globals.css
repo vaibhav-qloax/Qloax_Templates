@@ -132,6 +132,12 @@
   height: 100%;
 }
 
+/* In the hero, the figure's caption and scale bar would sit under the navbar and the
+   capability strip, so they are hidden; cubes, pins and the LIVE marker stay. */
+.lattice-figure .lt-labels {
+  display: none;
+}
+
 /* Landing build: nothing shows until JS starts the sequence, so no flash. */
 .lattice-figure .lt-build,
 .lattice-figure .lt-link,
@@ -238,8 +244,30 @@
   filter: brightness(1.12);
 }
 
+/* Settled: the build has played; everything is shown with no entrance animations,
+   so a cube moved in the DOM while dragging never replays (and never vanishes). */
+.lattice-figure.is-settled .lt-build,
+.lattice-figure.is-settled .lt-pin,
+.lattice-figure.is-settled .lt-labels,
+.lattice-figure.is-settled .lt-hatch {
+  opacity: 1;
+  animation: none;
+}
+.lattice-figure.is-settled .lt-grid {
+  opacity: 0.6;
+  animation: none;
+}
+.lattice-figure.is-settled .lt-link,
+.lattice-figure.is-settled .lt-envelope,
+.lattice-figure.is-settled .lt-edge {
+  opacity: 1;
+  animation: none;
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+}
+
 /* Drag any cube out; it springs back home on release. */
-.lattice-figure.is-built .lt-cube {
+.lattice-figure.is-settled .lt-cube {
   cursor: grab;
 }
 .lattice-figure.is-grabbing,

@@ -68,7 +68,7 @@ export default function Hero() {
           trigger="mount"
           delay={0.35}
           lines={HERO.headline}
-          className="mt-6 max-w-5xl font-display text-[clamp(3rem,9vw,8.5rem)] font-medium leading-[0.92] tracking-tighter text-ink"
+          className="mt-6 max-w-5xl font-display text-[clamp(2.35rem,9vw,8.5rem)] font-medium leading-[0.92] tracking-tighter text-ink"
         />
 
         {/* 4. Supporting text */}

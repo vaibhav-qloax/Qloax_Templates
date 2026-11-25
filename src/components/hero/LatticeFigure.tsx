@@ -36,6 +36,12 @@ export default function LatticeFigure({ className = "" }: { className?: string }
     timers.push(window.setTimeout(() => root.classList.add("show-labels"), reduce ? 0 : LABELS_IN_MS));
     timers.push(window.setTimeout(() => root.classList.remove("show-labels"), reduce ? 2500 : LABELS_OUT_MS));
     timers.push(window.setTimeout(() => root.classList.add("is-built"), reduce ? 0 : 2400));
+    timers.push(
+      window.setTimeout(() => {
+        root.classList.add("is-settled");
+        root.classList.remove("is-building");
+      }, reduce ? 0 : 3700),
+    );
     // One ripple through the finished stack, then hand over to the mouse.
     if (!reduce) {
       timers.push(window.setTimeout(() => root.classList.add("is-wave"), 2700));
@@ -126,7 +132,7 @@ export default function LatticeFigure({ className = "" }: { className?: string }
     };
 
     const onDown = (e: PointerEvent) => {
-      if (e.pointerType === "touch" || e.button !== 0 || !root.classList.contains("is-built")) return;
+      if (e.pointerType === "touch" || e.button !== 0 || !root.classList.contains("is-settled")) return;
       const el = (e.target as Element).closest<SVGGElement>(".lt-cube");
       const start = toView(e);
       if (!el || !start) return;

@@ -52,7 +52,7 @@ export default function ProductShowcase() {
   return (
     <section id="work" aria-labelledby="showcase-title" className="relative border-t border-line bg-paper">
       {/* Desktop: sticky scroll showcase */}
-      <div ref={ref} className={`relative hidden min-h-[520vh] ${reduce ? "" : "md:block"}`}>
+      <div ref={ref} className={`relative hidden min-h-[520vh] ${reduce ? "" : "lg:block"}`}>
         <div className="sticky top-0 flex h-screen w-full flex-col justify-between overflow-hidden px-6 py-8 pt-24 md:px-12">
           <div className="relative z-40 mx-auto flex w-full max-w-7xl items-center justify-between font-mono text-xs text-navy/70">
             <div className="flex items-center gap-2">
@@ -91,7 +91,7 @@ export default function ProductShowcase() {
       </div>
 
       {/* Mobile and reduced motion: stacked cards */}
-      <div className={`container-site py-20 ${reduce ? "" : "md:hidden"}`}>
+      <div className={`container-site py-20 ${reduce ? "" : "lg:hidden"}`}>
         <Reveal>
           <p className="font-mono text-xs font-medium uppercase tracking-widest text-navy">// The portfolio</p>
           <p className="mt-3 font-display text-4xl font-semibold uppercase tracking-tight text-ink">What we&apos;ve built</p>
