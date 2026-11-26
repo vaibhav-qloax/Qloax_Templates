@@ -3,8 +3,11 @@
 import { useEffect, useRef } from "react";
 import { renderLatticeSvg } from "./latticeSvg";
 
-// Pure geometry markup; rendered once per module.
-const SVG = renderLatticeSvg().replace('preserveAspectRatio="xMidYMid slice"', 'preserveAspectRatio="xMaxYMid slice"');
+// Pure geometry markup; rendered once per module. Background and cubes are separate layers.
+const LAYERS = renderLatticeSvg();
+const fit = (svg: string) => svg.replace('preserveAspectRatio="xMidYMid slice"', 'preserveAspectRatio="xMaxYMid slice"');
+const BACKGROUND = fit(LAYERS.background);
+const FOREGROUND = fit(LAYERS.foreground);
 
 /** How far (viewBox units) the cursor's influence reaches, and how high a cube can lift. */
 const RADIUS = 380;
@@ -24,7 +27,7 @@ export default function LatticeFigure({ className = "" }: { className?: string }
 
   useEffect(() => {
     const root = ref.current;
-    const svg = root?.querySelector("svg");
+    const svg = root?.querySelector<SVGSVGElement>("svg.lt-fg");
     if (!root || !svg) return;
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -33,6 +36,9 @@ export default function LatticeFigure({ className = "" }: { className?: string }
 
     // Landing: start the build, then introduce and retire the pin labels.
     root.classList.add("is-building");
+    // Pause looping motion while the hero is off-screen, so it costs nothing there.
+    const io = new IntersectionObserver(([entry]) => root.classList.toggle("is-offscreen", !entry.isIntersecting));
+    io.observe(root);
     timers.push(window.setTimeout(() => root.classList.add("show-labels"), reduce ? 0 : LABELS_IN_MS));
     timers.push(window.setTimeout(() => root.classList.remove("show-labels"), reduce ? 2500 : LABELS_OUT_MS));
     timers.push(window.setTimeout(() => root.classList.add("is-built"), reduce ? 0 : 2400));
@@ -177,6 +183,7 @@ export default function LatticeFigure({ className = "" }: { className?: string }
     svg.addEventListener("pointercancel", onUp);
 
     return () => {
+      io.disconnect();
       timers.forEach(clearTimeout);
       offs.forEach((f) => f());
       cancelAnimationFrame(raf);
@@ -189,5 +196,10 @@ export default function LatticeFigure({ className = "" }: { className?: string }
     };
   }, []);
 
-  return <div ref={ref} className={`lattice-figure ${className}`} dangerouslySetInnerHTML={{ __html: SVG }} />;
+  return (
+    <div ref={ref} className={`lattice-figure ${className}`}>
+      <div className="lt-layer lt-bg-layer" dangerouslySetInnerHTML={{ __html: BACKGROUND }} />
+      <div className="lt-layer lt-fg-layer" dangerouslySetInnerHTML={{ __html: FOREGROUND.replace("<svg ", '<svg class="lt-fg" ') }} />
+    </div>
+  );
 }

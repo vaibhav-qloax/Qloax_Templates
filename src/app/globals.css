@@ -138,6 +138,34 @@
   display: none;
 }
 
+/* Two stacked layers: the background is painted once, the cubes repaint on hover. */
+.lattice-figure {
+  position: relative;
+}
+.lattice-figure .lt-layer {
+  position: absolute;
+  inset: 0;
+}
+.lattice-figure .lt-layer svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.lattice-figure .lt-bg-layer {
+  will-change: transform;
+  contain: strict;
+}
+.lattice-figure .lt-fg-layer svg {
+  overflow: visible;
+}
+
+/* Off-screen: looping motion pauses, so it does no work while the hero is not visible. */
+.lattice-figure.is-offscreen *,
+.lattice-figure.is-offscreen *::before,
+.lattice-figure.is-offscreen *::after {
+  animation-play-state: paused !important;
+}
+
 /* Landing build: nothing shows until JS starts the sequence, so no flash. */
 .lattice-figure .lt-build,
 .lattice-figure .lt-link,

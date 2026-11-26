@@ -113,7 +113,7 @@ function buildDelay(id: string): number {
   return 0.25 + k * 0.5 + (i + j) * 0.07 + wireShift;
 }
 
-export function renderLatticeSvg(): string {
+export function renderLatticeSvg(): { background: string; foreground: string } {
   const defs = `
 <defs>
   <radialGradient id="lt-bg" cx="0.7" cy="0.48" r="0.55">
@@ -196,16 +196,23 @@ export function renderLatticeSvg(): string {
     `<text x="${s.x2}" y="${s.textY}" font-size="14.5" letter-spacing="2.4" fill="${C.caption}">${s.text}</text>` +
     `</g>`;
 
-  return (
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${VIEW.w} ${VIEW.h}" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Fig. 01, latent lattice: an isometric lattice of cubes, eleven formed">` +
+  const open = (label: string, hidden: boolean) =>
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${VIEW.w} ${VIEW.h}" preserveAspectRatio="xMidYMid slice"${
+      hidden ? ' aria-hidden="true"' : ` role="img" aria-label="${label}"`
+    }>`;
+
+  // Two layers: the static background is drawn once and kept on its own layer, so hover
+  // redraws only the cubes. Both layers share the same viewBox, so pointer maths is identical.
+  const background = open("", true) + defs + bg + "</svg>";
+  const foreground =
+    open("Fig. 01, latent lattice: an isometric lattice of cubes, eleven formed", false) +
     defs +
-    bg +
     dots +
     envelope +
     connectors +
     stack +
     floating +
     labels +
-    `</svg>`
-  );
+    "</svg>";
+  return { background, foreground };
 }

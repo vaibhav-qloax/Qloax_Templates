@@ -93,7 +93,7 @@ export default function ProductShowcase() {
       {/* Mobile and reduced motion: stacked cards */}
       <div className={`container-site py-20 ${reduce ? "" : "lg:hidden"}`}>
         <Reveal>
-          <p className="font-mono text-xs font-medium uppercase tracking-widest text-navy">// The portfolio</p>
+          <p className="font-mono text-xs font-medium uppercase tracking-widest text-navy">The portfolio</p>
           <p className="mt-3 font-display text-4xl font-semibold uppercase tracking-tight text-ink">What we&apos;ve built</p>
         </Reveal>
         <PhoneCarousel />

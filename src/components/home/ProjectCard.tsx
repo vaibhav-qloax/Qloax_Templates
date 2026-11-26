@@ -44,7 +44,7 @@ export default function ProjectCard({ project: p, priority = false }: { project:
         <div className="space-y-2">
           <span className="block font-mono text-[11px] font-medium uppercase tracking-wider text-navy">{p.tags.slice(1).join(" · ") || p.tags[0]}</span>
           <h3 className="font-display text-2xl font-semibold uppercase tracking-tight text-ink transition-colors group-hover:text-navy">{p.title}</h3>
-          <p className="line-clamp-2 font-mono text-xs text-navy/65">&quot;{p.summary}&quot;</p>
+          <p className="line-clamp-2 font-mono text-xs text-navy/65">{p.summary}</p>
           {p.headline && <p className="line-clamp-2 text-xs leading-relaxed text-navy/80">{p.headline}</p>}
         </div>
 

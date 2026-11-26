@@ -49,7 +49,7 @@ export default function Hero() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.6, ease: EASE }}
       >
-        <motion.div className="absolute inset-[-2%]" style={{ x: sx, y: sy }}>
+        <motion.div className="absolute inset-0 md:inset-[-2%]" style={{ x: sx, y: sy }}>
           <LatticeFigure className="h-full w-full" />
         </motion.div>
         {/* Phones: soft fade into the copy below; larger screens: fade behind the copy on the left. */}
